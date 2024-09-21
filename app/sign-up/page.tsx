@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'Регистрация'
+	title: 'Регистрация',
 };
 
 export default function SignUp() {

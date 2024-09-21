@@ -2,7 +2,7 @@
 
 export default function GlobalError({
 	_error,
-	reset
+	reset,
 }: {
 	_error: Error & { digest?: string };
 	reset: () => void;

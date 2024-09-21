@@ -34,10 +34,17 @@ const Header = () => {
 					</Button>
 				</Grid>
 				<li>
-					<Dropdown id="notification" label={<BellIcon withBadge />}></Dropdown>
+					<Dropdown
+						id="notification"
+						label={<BellIcon withBadge />}
+					></Dropdown>
 				</li>
 				<li className={classes.navbar_item_user}>
-					<Button color="inherit" size="small" startIcon={<AvatarIcon />}>
+					<Button
+						color="inherit"
+						size="small"
+						startIcon={<AvatarIcon />}
+					>
 						aromanchev
 					</Button>
 				</li>

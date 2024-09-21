@@ -1,20 +1,20 @@
 .navbar {
-  display: flex;
-  list-style: none;
-  align-items: center;
-  font-size: 15px;
-  &_item {
-    &_logo {
-      margin-right: 92px;
-    }
-    &_balance {
-      font-size: 14px;
-    }
-    &_user {
-      & button {
-        padding: 3px 12px;
-        background: rgba(0, 0, 0, 0.05);
-      }
-    }
-  }
+	display: flex;
+	list-style: none;
+	align-items: center;
+	font-size: 15px;
+	&_item {
+		&_logo {
+			margin-right: 92px;
+		}
+		&_balance {
+			font-size: 14px;
+		}
+		&_user {
+			& button {
+				padding: 3px 12px;
+				background: rgba(0, 0, 0, 0.05);
+			}
+		}
+	}
 }
