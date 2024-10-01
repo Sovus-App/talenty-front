@@ -1,5 +1,7 @@
 'use client';
 
+import { DefaultLayout } from '@/components';
+
 export default function GlobalError({
 	_error,
 	reset,
@@ -10,10 +12,10 @@ export default function GlobalError({
 	return (
 		<html>
 			<body>
-				<main>
+				<DefaultLayout>
 					<h1>Что-то пошло не так!</h1>
 					<button onClick={() => reset()}>Попробовать снова</button>
-				</main>
+				</DefaultLayout>
 			</body>
 		</html>
 	);

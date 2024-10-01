@@ -1,19 +1,38 @@
 :root {
 	--primary-color: #0d99ff;
+	--layout-profile-lg-max-width: 1280px;
+	--layout-auth-lg-max-width: 600px;
+	--layout-default-lg-max-width: 1280px;
+	--layout-lg-min-height: 600px;
+	--form-lg-max-width: 400px;
 }
 
 body {
 	font-family: var(--font-inter);
+	color: #1E1E1E;
+	font-size: 15px;
 }
 
 :is(h1, h2, h3, h4, h5, h6) {
 	font-weight: 700;
 }
 
+h1 {
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
 * {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+}
+
+span {
+	font-size: 14px;
 }
 
 html,
@@ -35,7 +54,6 @@ a:hover {
 
 main,
 header {
-	max-width: 1280px;
 	padding: 24px;
 	margin: 0 auto;
 }
@@ -43,5 +61,5 @@ header {
 main {
 	background-color: #ffffff;
 	border-radius: 8px;
-	min-height: 620px;
+	min-height: var(--layout-lg-min-height);
 }

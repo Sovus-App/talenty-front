@@ -1,0 +1,12 @@
+.respondents {
+	& h1 {
+		margin-bottom: 40px;
+	}
+}
+
+.create_respondent {
+	max-width: var(--form-lg-max-width);
+	& h1 {
+		margin-bottom: 40px;
+	}
+}

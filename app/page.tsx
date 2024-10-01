@@ -1,16 +1,11 @@
-import { Card } from '@mui/material';
-import { getPosts } from '@/lib/auth/getPosts';
+import { DefaultLayout } from '@/components';
 
-export default async function Home() {
-	const posts = await getPosts();
-
+export default async function Page() {
 	return (
-		<div>
-			{posts.map(post => (
-				<Card key={post.id}>
-					<h1>{post.title}</h1>
-				</Card>
-			))}
-		</div>
+		<DefaultLayout>
+			<div>
+				<h1>Добро пожаловать !</h1>
+			</div>
+		</DefaultLayout>
 	);
 }

@@ -1,4 +1,5 @@
 import Header from './header';
+import classes from '@/assets/styles/components/layout/layout.module.scss';
 import { ReactNode } from 'react';
 
 interface LayoutProps {
@@ -8,8 +9,10 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
-			<Header />
-			<main>{children}</main>
+			<header className={classes.profile_layout}>
+				<Header />
+			</header>
+			<main className={classes.profile_layout}>{children}</main>
 		</>
 	);
 };

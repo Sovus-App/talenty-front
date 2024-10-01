@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 import { Inter } from 'next/font/google';
-import { Layout } from '@/components';
 import AppProviders from '@/providers';
-import '../assets/styles/globals.css';
+import '@/assets/styles/globals.css';
 
 const inter = Inter({
 	subsets: ['cyrillic'],
@@ -29,11 +28,9 @@ export default function RootLayout({
 	children: ReactNode;
 }>) {
 	return (
-		<html lang="ru">
+		<html>
 			<body className={inter.variable}>
-				<AppProviders>
-					<Layout>{children}</Layout>
-				</AppProviders>
+				<AppProviders>{children}</AppProviders>
 			</body>
 		</html>
 	);

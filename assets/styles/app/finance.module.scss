@@ -1,0 +1,16 @@
+.finances {
+  &_balance {
+    margin-bottom: 40px;
+    & h1 {
+      margin-bottom: 8px;
+    }
+    & span {
+      color: rgba(20, 20, 20, 0.6);
+    }
+  }
+  &_transactions {
+    & h2 {
+      margin-bottom: 16px;
+    }
+  }
+}

@@ -18,3 +18,15 @@
 		}
 	}
 }
+
+.profile_layout {
+	max-width: var(--layout-profile-lg-max-width);
+}
+
+.auth_layout {
+	max-width: var(--layout-auth-lg-max-width);
+}
+
+.default_layout {
+	max-width: var(--layout-default-lg-max-width);
+}

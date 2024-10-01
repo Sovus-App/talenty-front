@@ -1,5 +1,10 @@
 import { Skeleton } from '@mui/material';
+import { DefaultLayout } from '@/components';
 
 export default function Loading() {
-	return <Skeleton height="500px" variant="rectangular" />;
+	return (
+		<DefaultLayout>
+			<Skeleton height="var(--layout-lg-min-height)" variant="rectangular" />
+		</DefaultLayout>
+	);
 }
