@@ -12,7 +12,7 @@ interface RespondentsTableProps {
 
 const RespondentsTable = ({ tableData }: RespondentsTableProps) => {
 	const columns: Columns<GetRespondentsSchema>[] = [
-		{ field: 'fullName', label: 'ФИО респондента', sx: { width: '40%' } },
+		{ field: 'full_name', label: 'ФИО респондента', sx: { width: '40%' } },
 		{
 			field: 'gender',
 			label: 'Пол',
@@ -29,8 +29,8 @@ const RespondentsTable = ({ tableData }: RespondentsTableProps) => {
 				);
 			},
 		},
-		{ field: 'age', label: 'Возраст', format: (value) => `${value} лет` },
-		{ field: 'testing_date', label: 'Дата тестирование' },
+		{ field: 'age', label: 'Возраст' },
+		{ field: 'testing_started_at', label: 'Дата тестирование' },
 		{
 			field: 'status',
 			label: 'Статус',
@@ -38,17 +38,19 @@ const RespondentsTable = ({ tableData }: RespondentsTableProps) => {
 				const status = {
 					color: 'inherit',
 					borderColor: 'transparent',
-					label: row.status.name,
+					label: '',
 				};
-				if (row.status.id === 0) {
+				if (row.status === 'completed') {
 					Object.assign(status, {
 						color: '#00995A',
 						borderColor: '#7FF9C6',
+						label: 'пройдено',
 					});
-				} else if (row.status.id === 1) {
+				} else if (row.status === 'not_completed') {
 					Object.assign(status, {
 						color: '#EB0000',
 						borderColor: '#FFE5E5',
+						label: 'не пройдено',
 					});
 				}
 				return (
@@ -70,7 +72,7 @@ const RespondentsTable = ({ tableData }: RespondentsTableProps) => {
 			align: 'right',
 			render: (row) => {
 				return (
-					<Link href={`/profile/respondents/${row.id}`}>
+					<Link href={`/profile/respondents/${row.uuid}`}>
 						<ArrowRight />
 					</Link>
 				);

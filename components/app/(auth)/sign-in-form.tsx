@@ -4,23 +4,17 @@ import { Button, Grid2 as Grid } from '@mui/material';
 import { AuthInput } from '@/components';
 
 import classes from '@/assets/styles/components/(auth)/auth.module.scss';
+import { signIn, SignInData } from '@/lib';
 
 const SignInForm = () => {
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<SignInData>({
 		email: '',
 		password: '',
 	});
 
 	async function onSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		// const response = await fetch('/api/submit', {
-		// 	method: 'POST',
-		// 	body: formData,
-		// });
-
-		// Handle response if necessary
-		// const data = await response.json();
-		// ...
+		await signIn(formData);
 	}
 	return (
 		<Grid

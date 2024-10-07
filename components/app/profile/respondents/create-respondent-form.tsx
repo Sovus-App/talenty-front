@@ -7,27 +7,29 @@ import {
 } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import CreateRespondentInput from '@/components/input/create-respondent-input';
+import { createRespondent } from '@/lib';
 
 const CreateRespondentForm = () => {
 	const [formData, setFormData] = useState({
 		last_name: '',
 		name: '',
 		surname: '',
+		gender: '',
 		no_surname: false,
-		date_birth: '',
+		date_of_birth: '',
 		phone: '',
 		email: '',
 	});
 	async function onSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		// const response = await fetch('/api/submit', {
-		// 	method: 'POST',
-		// 	body: formData,
-		// });
-
-		// Handle response if necessary
-		// const data = await response.json();
-		// ...
+		const data = {
+			full_name: `${formData.name} ${formData.last_name} ${formData.surname}`,
+			gender: formData.gender,
+			phone: formData.phone,
+			email: formData.email,
+			date_of_birth: formData.date_of_birth,
+		};
+		await createRespondent(data);
 	}
 	return (
 		<Grid
@@ -88,14 +90,14 @@ const CreateRespondentForm = () => {
 					label="Отчество отсутствует"
 				/>
 				<CreateRespondentInput
-					name="date_birth"
+					name="date_of_birth"
 					id="date-birth-field"
 					label="Выберите дату рождения"
 					type="date"
 					onChange={(event) =>
-						setFormData({ ...formData, date_birth: event.target.value })
+						setFormData({ ...formData, date_of_birth: event.target.value })
 					}
-					value={formData.date_birth}
+					value={formData.date_of_birth}
 				/>
 				<CreateRespondentInput
 					name="phone"

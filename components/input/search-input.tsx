@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { OutlinedInput } from '@mui/material';
-import useDebounce from '@/tools/use-debounce';
+import { useDebounce } from '@/tools';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { OutlinedInputProps } from '@mui/material/OutlinedInput/OutlinedInput';
 import { SearchIcon } from '@/assets/icons';

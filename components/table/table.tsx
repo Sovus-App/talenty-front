@@ -16,7 +16,7 @@ import { TableProps } from './types';
 const Table = <T,>({
 	data,
 	columns,
-	limitOptions = [10, 25, 100],
+	limitOptions = [10, 25, 50],
 	dataTotalCount,
 	withPagination = true,
 	hideHead = false,
@@ -24,20 +24,20 @@ const Table = <T,>({
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const page = searchParams.get('page') || 0;
-	const limit = searchParams.get('limit') || 10;
-	const onLimitChange = useCallback(
+	const current_page = searchParams.get('page') || 0;
+	const per_page = searchParams.get('per_page') || 10;
+	const onPerPageChange = useCallback(
 		(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set('limit', event.target.value);
+			queryParams.set('per_page', event.target.value);
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
 	);
-	const onPageChange = useCallback(
+	const onCurrentPageChange = useCallback(
 		(page: number) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set('page', String(page));
+			queryParams.set('current_page', String(page));
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
@@ -81,7 +81,7 @@ const Table = <T,>({
 											: value;
 									return (
 										<TableCell
-											sx={{ ...column.sx }}
+											sx={column.sx}
 											key={column.field}
 											align={column.align}
 										>
@@ -103,10 +103,10 @@ const Table = <T,>({
 					rowsPerPageOptions={limitOptions}
 					component="div"
 					count={dataTotalCount}
-					rowsPerPage={Number(limit)}
-					page={Number(page)}
-					onPageChange={(_, page) => onPageChange(page)}
-					onRowsPerPageChange={onLimitChange}
+					rowsPerPage={Number(per_page)}
+					page={Number(current_page)}
+					onPageChange={(_, page) => onCurrentPageChange(page)}
+					onRowsPerPageChange={onPerPageChange}
 				/>
 			) : null}
 		</Grid>

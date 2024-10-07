@@ -3,8 +3,10 @@ import classes from '@/assets/styles/components/layout/layout.module.scss';
 import { TalentyIcon, BellIcon, AvatarIcon } from '@/assets/icons';
 import { Button, Grid2 as Grid } from '@mui/material';
 import { Dropdown } from '../../dropdown';
+import { getMe } from '@/lib';
 
-const Header = () => {
+const Header = async () => {
+	const userData = await getMe();
 	return (
 		<Grid
 			gap="0px 12px"
@@ -37,7 +39,7 @@ const Header = () => {
 			</li>
 			<li className={classes.navbar_item_user}>
 				<Button color="inherit" size="small" startIcon={<AvatarIcon />}>
-					aromanchev
+					{userData.user.full_name}
 				</Button>
 			</li>
 		</Grid>

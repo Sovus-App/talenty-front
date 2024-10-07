@@ -9,10 +9,11 @@ import {
 import { AuthInput } from '@/components';
 
 import classes from '@/assets/styles/components/(auth)/auth.module.scss';
+import { signUp, SignUpData } from '@/lib';
 
 const SignUpForm = () => {
-	const [formData, setFormData] = useState({
-		name: '',
+	const [formData, setFormData] = useState<SignUpData>({
+		full_name: '',
 		phone: '',
 		email: '',
 		password: '',
@@ -21,14 +22,7 @@ const SignUpForm = () => {
 
 	async function onSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		// const response = await fetch('/api/submit', {
-		// 	method: 'POST',
-		// 	body: formData,
-		// });
-
-		// Handle response if necessary
-		// const data = await response.json();
-		// ...
+		await signUp(formData);
 	}
 	return (
 		<Grid
@@ -43,9 +37,9 @@ const SignUpForm = () => {
 			<Grid flexDirection="column" container rowGap="30px">
 				<AuthInput
 					onChange={(event) =>
-						setFormData({ ...formData, name: event.target.value })
+						setFormData({ ...formData, full_name: event.target.value })
 					}
-					value={formData.name}
+					value={formData.full_name}
 					id="name"
 					name="name"
 					required

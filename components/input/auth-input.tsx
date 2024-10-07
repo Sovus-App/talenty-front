@@ -19,6 +19,7 @@ const AuthInput = (props: Omit<TextFieldProps, 'variant'>) => {
 					lineHeight: '20px',
 					fontSize: '15px',
 					top: '-5px',
+					letterSpacing: '2px',
 				},
 				[`.${outlinedInputClasses.root}`]: {
 					[`.${outlinedInputClasses.notchedOutline}`]: {

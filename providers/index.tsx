@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
+import { AuthProvider } from '@/providers/auth';
 
 interface AppProvidersProps {
 	children: ReactNode;
@@ -9,9 +10,11 @@ interface AppProvidersProps {
 
 function AppProviders({ children }: AppProvidersProps) {
 	return (
-		<AppRouterCacheProvider>
-			<ThemeProvider theme={theme}>{children}</ThemeProvider>
-		</AppRouterCacheProvider>
+		<AuthProvider>
+			<AppRouterCacheProvider>
+				<ThemeProvider theme={theme}>{children}</ThemeProvider>
+			</AppRouterCacheProvider>
+		</AuthProvider>
 	);
 }
 
