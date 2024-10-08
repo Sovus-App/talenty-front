@@ -4,3 +4,4 @@ export {
 	CreateRespondentForm,
 	FinanceTable,
 } from './profile';
+export { HiddenMotivationTestingContainer } from './testing';

@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import { Button, Grid2 as Grid } from '@mui/material';
 import { AuthInput } from '@/components';
 
-import classes from '@/assets/styles/components/(auth)/auth.module.scss';
+import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
 import { signIn, SignInData } from '@/lib';
 
 const SignInForm = () => {

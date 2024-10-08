@@ -15,3 +15,8 @@ export {
 	type SignUpResponse,
 	type SignUpData,
 } from './(auth)';
+export {
+	useHiddenMotivation,
+	useHiddenMotivationSetup,
+	HIDDEN_MOTIVATION_TESTING_COLORS,
+} from './testing';

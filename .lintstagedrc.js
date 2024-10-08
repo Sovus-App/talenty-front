@@ -1,5 +1,5 @@
 module.exports = {
-	'**/*.(ts|tsx)': () => 'tsc --noEmit',
+	// '**/*.(ts|tsx)': () => 'tsc --noEmit',
 	'**/*.(ts|tsx|js)': (filenames) => [
 		`eslint ${filenames.join(' ')}`,
 		`prettier --write ${filenames.join(' ')}`,

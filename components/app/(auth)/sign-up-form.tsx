@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { AuthInput } from '@/components';
 
-import classes from '@/assets/styles/components/(auth)/auth.module.scss';
+import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
 import { signUp, SignUpData } from '@/lib';
 
 const SignUpForm = () => {
