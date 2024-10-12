@@ -4,3 +4,4 @@ export {
 	readFromLocalStorage,
 	deleteFromLocalStorage,
 } from './local-storage';
+export { parsePhone } from './parse-string';

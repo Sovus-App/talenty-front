@@ -10,8 +10,12 @@ import { AuthInput } from '@/components';
 
 import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
 import { signUp, SignUpData } from '@/lib';
+import { useRouter } from 'next/navigation';
+import { parsePhone } from '@/tools';
+import { PhoneInputMask, AuthInputProps } from '@/components/input';
 
 const SignUpForm = () => {
+	const router = useRouter();
 	const [formData, setFormData] = useState<SignUpData>({
 		full_name: '',
 		phone: '',
@@ -22,8 +26,15 @@ const SignUpForm = () => {
 
 	async function onSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		await signUp(formData);
+		const credentials = await signUp({
+			...formData,
+			phone: parsePhone(formData.phone),
+		});
+		if (credentials?.access_token) {
+			router.push('/profile/respondents');
+		}
 	}
+
 	return (
 		<Grid
 			container
@@ -47,16 +58,16 @@ const SignUpForm = () => {
 					type="text"
 				/>
 
-				<AuthInput
-					onChange={(event) =>
-						setFormData({ ...formData, phone: event.target.value })
-					}
+				<PhoneInputMask<AuthInputProps>
 					value={formData.phone}
+					onChange={(event) => {
+						setFormData({ ...formData, phone: event.target.value });
+					}}
 					id="phone"
-					name="phone"
-					label="Введите номер"
-					type="tel"
-				/>
+				>
+					{(inputProps) => <AuthInput {...inputProps} label="Введите номер" />}
+				</PhoneInputMask>
+
 				<AuthInput
 					onChange={(event) =>
 						setFormData({ ...formData, email: event.target.value })

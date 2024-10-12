@@ -3,10 +3,10 @@ import { useCallback } from 'react';
 import { useHiddenMotivation, useHiddenMotivationSetup } from '@/lib';
 
 import { Button as MUIButton, ButtonProps, Grid2 as Grid } from '@mui/material';
-import ColorSetupIntroduce from './color-setup-introduce';
-import ColorSetupCards from './color-setup-cards';
+import SetupIntroduce from './setup-introduce';
 import Introduce from './introduce';
-import Cards from './cards';
+import Testing from './testing';
+import Setup from './setup';
 
 import classes from '@/assets/styles/components/app/testing/hidden-motivation.module.scss';
 
@@ -14,7 +14,7 @@ const TestingButton = (props: ButtonProps) => (
 	<MUIButton {...props} variant="contained" size="large" fullWidth />
 );
 
-const TestingContainer = () => {
+const TestingContainer = ({ testingData }) => {
 	const {
 		buttonProps: setupButtonProps,
 		draftConfiguredColors,
@@ -29,7 +29,7 @@ const TestingContainer = () => {
 		currentQuestion,
 		setDraftSelectedAnswer,
 		isIntroducePassed,
-	} = useHiddenMotivation();
+	} = useHiddenMotivation({ testingData });
 	const Button = useCallback(() => {
 		if (!isSetupPassed) {
 			return <TestingButton {...setupButtonProps} />;
@@ -38,11 +38,11 @@ const TestingContainer = () => {
 	}, [isSetupPassed, setupButtonProps, testingButtonProps]);
 	const Layout = useCallback(() => {
 		if (!isSetupIntroducePassed) {
-			return <ColorSetupIntroduce />;
+			return <SetupIntroduce />;
 		}
 		if (!isSetupPassed) {
 			return (
-				<ColorSetupCards
+				<Setup
 					draftConfiguredColors={draftConfiguredColors}
 					configuredColors={configuredColors}
 					setDraftConfiguredColors={setDraftConfiguredColors}
@@ -53,7 +53,7 @@ const TestingContainer = () => {
 			return <Introduce />;
 		}
 		return (
-			<Cards
+			<Testing
 				text={currentQuestion?.text}
 				draftSelectedAnswer={draftSelectedAnswer}
 				setDraftSelectedAnswer={setDraftSelectedAnswer}

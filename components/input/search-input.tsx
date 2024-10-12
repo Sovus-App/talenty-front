@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { OutlinedInputProps } from '@mui/material/OutlinedInput/OutlinedInput';
 import { SearchIcon } from '@/assets/icons';
 
-const SEARCH_INPUT_QUERY_KEY = 'searchStr';
+const SEARCH_INPUT_QUERY_KEY = 'search';
 
 const SearchInput = ({
 	size = 'small',

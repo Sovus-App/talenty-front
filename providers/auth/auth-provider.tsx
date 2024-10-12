@@ -10,6 +10,13 @@ function AuthProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const isPrivateRoute = pathname.includes('profile');
+	const isAuth = pathname.includes('sign-in') || pathname.includes('sign-up');
+
+	useEffect(() => {
+		if (token && isAuth) {
+			router.push('/profile/respondents');
+		}
+	}, [token, isAuth]);
 
 	useEffect(() => {
 		if (!token && isPrivateRoute) {

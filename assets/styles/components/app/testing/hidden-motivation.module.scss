@@ -1,24 +1,13 @@
 .container {
-  text-align: center;
-  &_layout {
-    min-height: 650px;
-    margin-bottom: 48px;
-  }
-  &_button {}
-}
-
-.cards {
+  grid-template-columns: 50% 50%;
+  gap: 12px;
+  display: grid;
   text-align: center;
   & h1 {
     margin-bottom: 16px;
     text-transform: uppercase;
   }
-  &_container {
-    grid-template-columns: 50% 50%;
-    gap: 12px;
-    display: grid;
-  }
-  &_item {
+  &_card {
     border-radius: 15px;
     transition: .3s ease-in-out;
     flex: calc(50% - 12px) 0;
@@ -31,11 +20,15 @@
       font-size: 28px;
     }
   }
+  &_layout {
+    min-height: 650px;
+    margin-bottom: 48px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-  .cards {
-    &_item {
+  .container {
+    &_card {
       height: 102px;
       font-size: 18px;
     }

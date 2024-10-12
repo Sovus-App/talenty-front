@@ -1,21 +1,32 @@
 'use client';
 import {
 	Button,
-	Checkbox,
+	FormControl,
 	FormControlLabel,
+	FormLabel,
 	Grid2 as Grid,
+	Radio,
+	RadioGroup,
 } from '@mui/material';
 import { FormEvent, useState } from 'react';
-import CreateRespondentInput from '@/components/input/create-respondent-input';
+import {
+	CreateRespondentInput,
+	PhoneInputMask,
+	CreateRespondentInputProps,
+} from '@/components/input';
 import { createRespondent } from '@/lib';
+import { useRouter } from 'next/navigation';
+import { DatePicker } from '@/components';
+import moment from 'moment';
+import { parsePhone } from '@/tools';
 
 const CreateRespondentForm = () => {
+	const router = useRouter();
 	const [formData, setFormData] = useState({
 		last_name: '',
 		name: '',
 		surname: '',
-		gender: '',
-		no_surname: false,
+		gender: 'male',
 		date_of_birth: '',
 		phone: '',
 		email: '',
@@ -25,11 +36,14 @@ const CreateRespondentForm = () => {
 		const data = {
 			full_name: `${formData.name} ${formData.last_name} ${formData.surname}`,
 			gender: formData.gender,
-			phone: formData.phone,
+			phone: parsePhone(formData.phone),
 			email: formData.email,
 			date_of_birth: formData.date_of_birth,
 		};
-		await createRespondent(data);
+		const respondent = await createRespondent(data);
+		if (respondent?.uuid) {
+			router.push('/profile/respondents');
+		}
 	}
 	return (
 		<Grid
@@ -42,6 +56,7 @@ const CreateRespondentForm = () => {
 		>
 			<Grid flexDirection="column" container rowGap="20px">
 				<CreateRespondentInput
+					required
 					name="name"
 					placeholder="Иван"
 					id="name-field"
@@ -52,6 +67,7 @@ const CreateRespondentForm = () => {
 					value={formData.name}
 				/>
 				<CreateRespondentInput
+					required
 					name="last_name"
 					placeholder="Иванов"
 					id="last-name-field"
@@ -71,45 +87,75 @@ const CreateRespondentForm = () => {
 					}
 					value={formData.surname}
 				/>
-				<FormControlLabel
-					required
-					checked={formData.no_surname}
-					htmlFor="no-surname-field"
-					control={
-						<Checkbox
-							onChange={(event) =>
-								setFormData({
-									...formData,
-									no_surname: event.target.checked,
-								})
+				<FormControl>
+					<FormLabel id="gender-radio-buttons-group-label">Пол</FormLabel>
+					<RadioGroup
+						aria-labelledby="gender-radio-buttons-group-label"
+						defaultValue="male"
+					>
+						<FormControlLabel
+							value="male"
+							htmlFor="gender-male-field"
+							control={
+								<Radio
+									onClick={() =>
+										setFormData({
+											...formData,
+											gender: 'male',
+										})
+									}
+									id="gender-male-field"
+								/>
 							}
-							id="no-surname-field"
-							name="no_surname"
+							label="Мужчина"
 						/>
-					}
-					label="Отчество отсутствует"
-				/>
-				<CreateRespondentInput
-					name="date_of_birth"
+						<FormControlLabel
+							value="female"
+							htmlFor="gender-female-field"
+							control={
+								<Radio
+									onClick={() =>
+										setFormData({
+											...formData,
+											gender: 'male',
+										})
+									}
+									id="gender-female-field"
+								/>
+							}
+							label="Женщина"
+						/>
+					</RadioGroup>
+				</FormControl>
+
+				<DatePicker
 					id="date-birth-field"
 					label="Выберите дату рождения"
-					type="date"
-					onChange={(event) =>
-						setFormData({ ...formData, date_of_birth: event.target.value })
+					onChange={(date) =>
+						setFormData({
+							...formData,
+							date_of_birth: date?.format('YYYY-MM-DD') || '',
+						})
 					}
-					value={formData.date_of_birth}
+					value={
+						formData.date_of_birth ? moment(formData.date_of_birth) : undefined
+					}
 				/>
-				<CreateRespondentInput
-					name="phone"
-					id="phone-field"
-					label="Введите номер телефона"
-					placeholder="+7"
-					type="tel"
+				<PhoneInputMask<CreateRespondentInputProps>
+					value={formData.phone}
 					onChange={(event) =>
 						setFormData({ ...formData, phone: event.target.value })
 					}
-					value={formData.phone}
-				/>
+				>
+					{(inputProps) => (
+						<CreateRespondentInput
+							{...inputProps}
+							id="phone-field"
+							label="Введите номер телефона"
+						/>
+					)}
+				</PhoneInputMask>
+
 				<CreateRespondentInput
 					name="email"
 					id="email-field"
@@ -117,9 +163,9 @@ const CreateRespondentForm = () => {
 					type="email"
 					placeholder="example@examle.com"
 					onChange={(event) =>
-						setFormData({ ...formData, phone: event.target.value })
+						setFormData({ ...formData, email: event.target.value })
 					}
-					value={formData.phone}
+					value={formData.email}
 				/>
 			</Grid>
 			<Grid container gap="16px">

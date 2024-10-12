@@ -13,16 +13,23 @@ export interface SignUpResponse {
 	access_token: string;
 }
 
-const SIGN_IN_API_ROUTE = '/api/internal/sign-up';
+const SIGN_IN_API_ROUTE = 'api/internal/sign-up';
 
-export async function signUp(data: SignUpData) {
+export async function signUp(formData: SignUpData) {
 	const response = await fetch(
-		`${process.env.API_BASE_URL}/${SIGN_IN_API_ROUTE}`,
+		`${process.env.NEXT_PUBLIC_API_BASE_URL}/${SIGN_IN_API_ROUTE}`,
 		{
 			method: 'POST',
-			body: JSON.stringify({ user: data }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ user: formData }),
 		},
 	);
-	const credentials: { data: SignUpResponse } = await response.json();
-	writeToLocalStorage('token', credentials.data.access_token);
+	const { data: credentials, error } = await response.json();
+	if (credentials) {
+		writeToLocalStorage('token', credentials.access_token);
+		return credentials;
+	}
+	return error;
 }

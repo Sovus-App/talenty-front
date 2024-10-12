@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useState } from 'react';
-import { HIDDEN_MOTIVATION_TESTING_COLORS } from '@/lib';
+import { HIDDEN_MOTIVATION_TESTING_COLORS } from '@/lib/testing/hidden-motivation';
 
 export interface ConfiguredColors {
 	color: string;

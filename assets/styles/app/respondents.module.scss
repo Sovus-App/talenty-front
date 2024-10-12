@@ -10,3 +10,26 @@
 		margin-bottom: 40px;
 	}
 }
+
+.respondent_card {
+	&_header {
+    margin-bottom: 40px;
+    & h1 {
+      margin-bottom: 8px;
+    }
+    &_info {
+      & li {
+        position: relative;
+        &:not(:last-child)::after {
+          content: '•';
+          color: var(--primary-color);
+          width: 4px;
+          height: 4px;
+          position: absolute;
+          right: -8px;
+          top: 2px;
+        }
+      }
+    }
+	}
+}

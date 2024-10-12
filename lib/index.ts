@@ -1,9 +1,13 @@
 export {
 	createRespondent,
-	getRespondents,
-	getMe,
+	getMeFetcher,
 	getTransactions,
-	type GetRespondentsSchema,
+	getRespondentsFetcher,
+	GET_RESPONDENT_API_ROUTE,
+	GET_ME_API_ROUTE,
+	type Respondent,
+	type Surveys,
+	type RespondentDetail,
 	type GetTransactionsSchema,
 	type GetMeResponse,
 } from './profile';
@@ -15,8 +19,4 @@ export {
 	type SignUpResponse,
 	type SignUpData,
 } from './(auth)';
-export {
-	useHiddenMotivation,
-	useHiddenMotivationSetup,
-	HIDDEN_MOTIVATION_TESTING_COLORS,
-} from './testing';
+export { useHiddenMotivation, useHiddenMotivationSetup } from './testing';

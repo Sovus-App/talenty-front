@@ -9,9 +9,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
-			<header className={classes.auth_layout}>
-				<Header />
-			</header>
+			<Header />
 			<main className={classes.auth_layout}>{children}</main>
 		</>
 	);

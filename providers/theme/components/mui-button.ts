@@ -9,6 +9,7 @@ const muiButton: MUIComponentsType = {
 				minWidth: 'auto',
 				height: 'max-content',
 				textAlign: 'center',
+				color: 'inherit',
 				variants: [
 					{
 						props: { size: 'small' },
@@ -36,13 +37,13 @@ const muiButton: MUIComponentsType = {
 						style: {
 							background: 'none',
 							border: '1px solid #0D99FF',
-							color: '#0D99FF',
+							color: 'var(--primary-color)',
 						},
 					},
 					{
 						props: { variant: 'contained' },
 						style: {
-							background: '#0D99FF',
+							background: 'var(--primary-color)',
 							color: '#ffffff',
 						},
 					},

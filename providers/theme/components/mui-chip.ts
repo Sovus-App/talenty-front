@@ -7,6 +7,14 @@ const muiChip: MUIComponentsType = {
 				height: 'auto',
 				borderRadius: '4px',
 				background: '#F0F5F8',
+				variants: [
+					{
+						props: { size: 'medium' },
+						style: {
+							padding: '2px 8px',
+						},
+					},
+				],
 			},
 		},
 	},

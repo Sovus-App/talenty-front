@@ -5,8 +5,11 @@ import {
 	TextFieldProps,
 } from '@mui/material';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { ReactNode } from 'react';
 
-const AuthInput = (props: Omit<TextFieldProps, 'variant'>) => {
+export interface AuthInputProps extends Omit<TextFieldProps, 'variant'> {}
+
+const AuthInput = (props: AuthInputProps): ReactNode => {
 	return (
 		<TextField
 			{...props}
@@ -19,12 +22,16 @@ const AuthInput = (props: Omit<TextFieldProps, 'variant'>) => {
 					lineHeight: '20px',
 					fontSize: '15px',
 					top: '-5px',
-					letterSpacing: '2px',
 				},
 				[`.${outlinedInputClasses.root}`]: {
 					[`.${outlinedInputClasses.notchedOutline}`]: {
 						borderRadius: '12px',
-						border: '2px solid #D1D7DB',
+						borderColor: '#D1D7DB',
+						borderWidth: '2px',
+						'& legend span': {
+							padding: 0,
+							fontSize: '13px',
+						},
 					},
 				},
 

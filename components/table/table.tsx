@@ -10,12 +10,17 @@ import {
 	TableCell,
 	TableBody,
 	TablePagination,
+	Skeleton,
 } from '@mui/material';
 import { TableProps } from './types';
 
+const TABLE_PAGE_QUERY_KEY = 'page';
+const TABLE_PER_PAGE_QUERY_KEY = 'per_page';
+
 const Table = <T,>({
-	data,
+	data = [],
 	columns,
+	loading,
 	limitOptions = [10, 25, 50],
 	dataTotalCount,
 	withPagination = true,
@@ -24,12 +29,12 @@ const Table = <T,>({
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const current_page = searchParams.get('page') || 0;
-	const per_page = searchParams.get('per_page') || 10;
+	const current_page = searchParams.get(TABLE_PAGE_QUERY_KEY) || 0;
+	const per_page = searchParams.get(TABLE_PER_PAGE_QUERY_KEY) || 10;
 	const onPerPageChange = useCallback(
 		(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set('per_page', event.target.value);
+			queryParams.set(TABLE_PER_PAGE_QUERY_KEY, event.target.value);
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
@@ -37,11 +42,56 @@ const Table = <T,>({
 	const onCurrentPageChange = useCallback(
 		(page: number) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set('current_page', String(page));
+			queryParams.set(TABLE_PAGE_QUERY_KEY, String(page));
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
 	);
+
+	const TableBodyContent = () => {
+		if (loading) {
+			return (
+				<TableRow>
+					<TableCell colSpan={columns?.length}>
+						<Skeleton variant="rectangular" height="400px" />
+					</TableCell>
+				</TableRow>
+			);
+		}
+		if (data.length) {
+			return data.map((row: T) => (
+				<TableRow
+					hover
+					role="checkbox"
+					tabIndex={-1}
+					key={(row as { id: number }).id}
+				>
+					{columns.map((column) => {
+						const value = column.field
+							? (row as Record<string, string | number>)[column.field]
+							: undefined;
+						const cellElement = column.render
+							? column.render(row)
+							: column.format
+								? column.format(value)
+								: value;
+						return (
+							<TableCell sx={column.sx} key={column.field} align={column.align}>
+								{cellElement}
+							</TableCell>
+						);
+					})}
+				</TableRow>
+			));
+		}
+		return (
+			<TableRow>
+				<TableCell sx={{ textAlign: 'center' }} colSpan={columns?.length}>
+					Нет данных
+				</TableCell>
+			</TableRow>
+		);
+	};
 
 	return (
 		<Grid>
@@ -63,34 +113,7 @@ const Table = <T,>({
 						</TableHead>
 					) : null}
 					<TableBody>
-						{data.map((row: T) => (
-							<TableRow
-								hover
-								role="checkbox"
-								tabIndex={-1}
-								key={(row as { id: number }).id}
-							>
-								{columns.map((column) => {
-									const value = column.field
-										? (row as Record<string, string | number>)[column.field]
-										: undefined;
-									const cellElement = column.render
-										? column.render(row)
-										: column.format
-											? column.format(value)
-											: value;
-									return (
-										<TableCell
-											sx={column.sx}
-											key={column.field}
-											align={column.align}
-										>
-											{cellElement}
-										</TableCell>
-									);
-								})}
-							</TableRow>
-						))}
+						<TableBodyContent />
 					</TableBody>
 				</MUITable>
 			</TableContainer>

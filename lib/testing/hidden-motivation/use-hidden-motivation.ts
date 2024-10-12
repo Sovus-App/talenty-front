@@ -1,8 +1,7 @@
 'use client';
 import { useCallback, useMemo, useState } from 'react';
 
-const useHiddenMotivation = () => {
-	const testingData = { questions: [] };
+const useHiddenMotivation = ({ testingData = { questions: [] } }) => {
 	const [isIntroducePassed, setIsIntroducePassed] = useState(false);
 	const [draftSelectedAnswer, setDraftSelectedAnswer] = useState();
 	const [questionIndex, setQuestionIndex] = useState(0);

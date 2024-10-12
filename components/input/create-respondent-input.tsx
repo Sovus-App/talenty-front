@@ -1,6 +1,7 @@
 import { FormControl, TextField, TextFieldProps } from '@mui/material';
 
-interface CreateRespondentInputProps extends Omit<TextFieldProps, 'label'> {
+export interface CreateRespondentInputProps
+	extends Omit<TextFieldProps, 'label'> {
 	id: string;
 	label: string;
 }

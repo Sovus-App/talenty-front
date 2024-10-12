@@ -20,17 +20,21 @@
 }
 
 .profile_layout {
+	background-color: var(--layout-background-color);
 	max-width: var(--layout-profile-lg-max-width);
 }
 
 .auth_layout {
+	background-color: var(--layout-background-color);
 	max-width: var(--layout-auth-lg-max-width);
 }
 
 .default_layout {
+	background-color: var(--layout-background-color);
 	max-width: var(--layout-default-lg-max-width);
 }
 
 .testing_layout {
+	background-color: var(--layout-background-color);
 	max-width: var(--layout-testing-lg-max-width);
 }

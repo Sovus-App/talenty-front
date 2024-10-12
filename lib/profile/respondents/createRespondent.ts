@@ -1,33 +1,24 @@
 import { readFromLocalStorage } from '@/tools';
-
-interface CreateRespondentData {
-	full_name: string;
-	date_of_birth: string;
-	phone: string;
-	email: string;
-	gender: 'male' | 'female' | string;
-}
-
-interface CreateRespondentResponses
-	extends Omit<CreateRespondentData, 'date_of_birth'> {
-	uuid: string;
-	age: string;
-}
+import { CreateRespondentData, CreateRespondentResponse } from './types';
 
 const CREATE_RESPONDENT_API_ROUTE = '/api/internal/pages/respondents';
 
-export async function createRespondent(data: CreateRespondentData) {
+export async function createRespondent(formData: CreateRespondentData) {
 	const token = readFromLocalStorage('token');
 	const response = await fetch(
-		`${process.env.API_BASE_URL}/${CREATE_RESPONDENT_API_ROUTE}`,
+		`${process.env.NEXT_PUBLIC_API_BASE_URL}/${CREATE_RESPONDENT_API_ROUTE}`,
 		{
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify({ data: formData }),
 		},
 	);
-	const respondent: CreateRespondentResponses = await response.json();
-	return respondent;
+	const { data, error } = await response.json();
+	if (data) {
+		return data as CreateRespondentResponse;
+	}
+	return error;
 }

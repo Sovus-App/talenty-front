@@ -5,8 +5,10 @@ import { AuthInput } from '@/components';
 
 import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
 import { signIn, SignInData } from '@/lib';
+import { useRouter } from 'next/navigation';
 
 const SignInForm = () => {
+	const router = useRouter();
 	const [formData, setFormData] = useState<SignInData>({
 		email: '',
 		password: '',
@@ -14,7 +16,10 @@ const SignInForm = () => {
 
 	async function onSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		await signIn(formData);
+		const credentials = await signIn(formData);
+		if (credentials?.access_token) {
+			router.push('/profile/respondents');
+		}
 	}
 	return (
 		<Grid

@@ -5,18 +5,20 @@ import { Grid2 as Grid } from '@mui/material';
 
 const Header = () => {
 	return (
-		<Grid
-			container
-			justifyContent="center"
-			component="ul"
-			className={classes.navbar}
-		>
-			<Grid component="li" marginBottom="24px">
-				<Link href={'/'}>
-					<TalentyIcon />
-				</Link>
+		<header className={classes.default_layout}>
+			<Grid
+				container
+				justifyContent="center"
+				component="ul"
+				className={classes.navbar}
+			>
+				<Grid component="li" marginBottom="24px">
+					<Link href={'/'}>
+						<TalentyIcon />
+					</Link>
+				</Grid>
 			</Grid>
-		</Grid>
+		</header>
 	);
 };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Popover, PopoverProps } from '@mui/material';
+import { Button, ButtonProps, Popover, PopoverProps } from '@mui/material';
 import { PropsWithChildren, ReactNode, useState, MouseEvent } from 'react';
 
 interface DropdownProps
@@ -8,6 +8,7 @@ interface DropdownProps
 	label: ReactNode;
 	id: string;
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+	toggle?: ButtonProps;
 }
 
 const Dropdown = ({
@@ -20,6 +21,7 @@ const Dropdown = ({
 		horizontal: 'left',
 	},
 	onClick,
+	toggle,
 	...props
 }: PropsWithChildren<DropdownProps>) => {
 	const [popoverElement, setPopoverElement] =
@@ -33,13 +35,14 @@ const Dropdown = ({
 		<div>
 			<Button
 				aria-describedby={popoverId}
-				onClick={event => {
+				onClick={(event) => {
 					if (onClick) {
 						onClick(event);
 					}
 					setPopoverElement(event.currentTarget);
 				}}
 				size="small"
+				{...toggle}
 			>
 				{label}
 			</Button>

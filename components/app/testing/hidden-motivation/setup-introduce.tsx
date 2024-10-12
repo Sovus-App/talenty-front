@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import DemoGIF from '@/assets/gif/motivation-testing.gif';
+import { Grid2 as Grid } from '@mui/material';
 
-const ColorSetupIntroduce = () => (
-	<>
+const SetupIntroduce = () => (
+	<Grid container flexDirection="column" gap="12px">
 		<h1>Инструкция: часть 1</h1>
 		<Image
 			src={DemoGIF}
@@ -15,7 +16,7 @@ const ColorSetupIntroduce = () => (
 		<p>
 			<b>Время не ограничено</b>
 		</p>
-	</>
+	</Grid>
 );
 
-export default ColorSetupIntroduce;
+export default SetupIntroduce;

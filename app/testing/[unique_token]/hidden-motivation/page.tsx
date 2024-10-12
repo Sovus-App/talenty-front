@@ -2,13 +2,10 @@ import type { Metadata } from 'next';
 import { HiddenMotivationTestingContainer } from '@/components/app';
 
 export const metadata: Metadata = {
-	title: 'Респонденты',
+	title: 'Скрытая мотивация',
 };
 
 export default async function Page() {
-	return (
-		<div>
-			<HiddenMotivationTestingContainer />
-		</div>
-	);
+	const testingData = await Promise.resolve({ questions: [] });
+	return <HiddenMotivationTestingContainer testingData={testingData} />;
 }

@@ -7,7 +7,9 @@ export default async function NotFound() {
 	return (
 		<DefaultLayout>
 			<Grid gap="48px" container className={classes.notFound}>
-				<h1>Страница не найдена!</h1>
+				<Grid>
+					<h1>Страница не найдена!</h1>
+				</Grid>
 				<Link className={classes.notFound__redirect_link} href="/">
 					Вернуться на главную
 				</Link>
