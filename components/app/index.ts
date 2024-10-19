@@ -5,4 +5,7 @@ export {
 	CreateRespondentForm,
 	FinanceTable,
 } from './profile';
-export { HiddenMotivationTestingContainer } from './testing';
+export {
+	HiddenMotivationTestingContainer,
+	PersonalityAssessmentTestingContainer,
+} from './testing';

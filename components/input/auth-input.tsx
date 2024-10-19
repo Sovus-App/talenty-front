@@ -17,6 +17,7 @@ const AuthInput = (props: AuthInputProps): ReactNode => {
 			size="medium"
 			fullWidth
 			required
+			slotProps={{ inputLabel: { shrink: true } }}
 			sx={{
 				[`.${inputLabelClasses.root}`]: {
 					lineHeight: '20px',

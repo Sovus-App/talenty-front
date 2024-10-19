@@ -5,7 +5,7 @@ import { Grid2 as Grid } from '@mui/material';
 
 interface CardProps {
 	configured_color: ConfiguredColors;
-	draftSelectedAnswer: ConfiguredColors;
+	draftSelectedAnswer?: ConfiguredColors;
 	setDraftSelectedAnswer: (color?: ConfiguredColors) => void;
 }
 
@@ -34,8 +34,8 @@ const Card = ({
 interface TestingProps {
 	configuredColors: ConfiguredColors[];
 	setDraftSelectedAnswer: (color?: ConfiguredColors) => void;
-	draftSelectedAnswer: ConfiguredColors;
-	text: string;
+	draftSelectedAnswer?: ConfiguredColors;
+	text?: string;
 }
 
 const Testing = ({
@@ -46,7 +46,7 @@ const Testing = ({
 }: TestingProps) => {
 	return (
 		<Grid textAlign="center">
-			<h1>{text || 'Foo'}</h1>
+			<h1>{text}</h1>
 			<div className={classes.container}>
 				{configuredColors.map((configured_color) => (
 					<Card

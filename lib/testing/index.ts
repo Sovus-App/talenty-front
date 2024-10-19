@@ -1,4 +1,7 @@
 export {
 	useHiddenMotivation,
 	useHiddenMotivationSetup,
-} from './hidden-motivation';
+	usePersonalityAssessment,
+} from './hooks';
+
+export { default as getTesting } from './getTesting';

@@ -1,13 +1,16 @@
 'use client';
+
 import { useCallback, useState } from 'react';
-import { HIDDEN_MOTIVATION_TESTING_COLORS } from '@/lib/testing/hidden-motivation';
+import {
+	ConfiguredColors,
+	HiddenMotivationColors,
+} from '../hidden-motivation/types';
 
-export interface ConfiguredColors {
-	color: string;
-	value: number;
-}
-
-const useHiddenMotivationSetup = () => {
+const useHiddenMotivationSetup = ({
+	colors,
+}: {
+	colors: HiddenMotivationColors[];
+}) => {
 	const [isSetupIntroducePassed, setIsSetupIntroducePassed] = useState(false);
 	const [isSetupPassed, setIsSetupPassed] = useState(false);
 	const [draftConfiguredColors, setDraftConfiguredColors] =
@@ -29,12 +32,12 @@ const useHiddenMotivationSetup = () => {
 				const configured_colors = updatedConfiguredColors.map(
 					(color_item) => color_item.color,
 				);
-				const last_color = HIDDEN_MOTIVATION_TESTING_COLORS.find(
+				const last_color = colors.find(
 					(color_item) => !configured_colors.includes(color_item.color),
 				);
 				updatedConfiguredColors = [
 					...updatedConfiguredColors,
-					{ ...last_color, value: 1 } as ConfiguredColors,
+					{ ...last_color, order: 1 } as ConfiguredColors,
 				].sort(() => 0.5 - Math.random());
 				setIsSetupPassed(!isSetupPassed);
 			}
@@ -42,6 +45,7 @@ const useHiddenMotivationSetup = () => {
 			setDraftConfiguredColors(undefined);
 		}
 	}, [
+		colors,
 		configuredColors,
 		draftConfiguredColors,
 		isSetupIntroducePassed,

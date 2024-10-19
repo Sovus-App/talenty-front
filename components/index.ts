@@ -5,6 +5,8 @@ export {
 	RespondentCard,
 	RespondentsTable,
 	CreateRespondentForm,
+	HiddenMotivationTestingContainer,
+	PersonalityAssessmentTestingContainer,
 } from './app';
 export {
 	AuthLayout,
@@ -12,7 +14,10 @@ export {
 	ProfileLayout,
 	ProfileHeader,
 	TestingLayout,
+	TestingHeader,
+	TestingMain,
 	RespondentLayout,
+	ErrorLayout,
 } from './layout';
 export { Dropdown } from './dropdown';
 export { Table } from './table';

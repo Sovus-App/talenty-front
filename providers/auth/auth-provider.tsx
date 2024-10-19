@@ -1,30 +1,51 @@
 'use client';
-import { ReactNode, useEffect } from 'react';
-import { readFromLocalStorage } from '@/tools';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { deleteFromLocalStorage, readFromLocalStorage } from '@/tools';
 import { usePathname, useRouter } from 'next/navigation';
 import { Skeleton } from '@mui/material';
 import { DefaultLayout } from '@/components';
+import { getMe } from '@/lib/profile/me/getMe';
+import { useSnackbar } from 'notistack';
 
 function AuthProvider({ children }: { children: ReactNode }) {
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const { enqueueSnackbar } = useSnackbar();
 	const token = readFromLocalStorage('token');
 	const router = useRouter();
 	const pathname = usePathname();
 	const isPrivateRoute = pathname.includes('profile');
 	const isAuth = pathname.includes('sign-in') || pathname.includes('sign-up');
 
+	const checkAuth = useCallback(async () => {
+		if (token) {
+			const user = await getMe(token);
+			if (user?.uuid) {
+				setIsAuthenticated(true);
+			} else if (user?.message) {
+				enqueueSnackbar(user?.message);
+				deleteFromLocalStorage('token');
+				setIsAuthenticated(false);
+			}
+		}
+	}, [token]);
+
 	useEffect(() => {
-		if (token && isAuth) {
+		checkAuth();
+	}, [checkAuth]);
+
+	useEffect(() => {
+		if (token && isAuthenticated && isAuth) {
 			router.push('/profile/respondents');
 		}
-	}, [token, isAuth]);
+	}, [token, isAuthenticated, isAuth]);
 
 	useEffect(() => {
-		if (!token && isPrivateRoute) {
+		if (!token && !isAuthenticated && isPrivateRoute) {
 			router.push('/sign-up');
 		}
-	}, [token, isPrivateRoute]);
+	}, [token, isAuthenticated, isPrivateRoute]);
 
-	return !token && isPrivateRoute ? (
+	return !isAuthenticated && isPrivateRoute ? (
 		<DefaultLayout>
 			<Skeleton height="var(--layout-lg-min-height)" variant="rectangular" />
 		</DefaultLayout>

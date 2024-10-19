@@ -5,6 +5,8 @@ import {
 	Checkbox,
 	FormControlLabel,
 	Grid2 as Grid,
+	InputAdornment,
+	Typography,
 } from '@mui/material';
 import { AuthInput } from '@/components';
 
@@ -13,9 +15,13 @@ import { signUp, SignUpData } from '@/lib';
 import { useRouter } from 'next/navigation';
 import { parsePhone } from '@/tools';
 import { PhoneInputMask, AuthInputProps } from '@/components/input';
+import { MailIcon } from '@/assets/icons';
+import Link from 'next/link';
+import { useSnackbar } from 'notistack';
 
 const SignUpForm = () => {
 	const router = useRouter();
+	const { enqueueSnackbar } = useSnackbar();
 	const [formData, setFormData] = useState<SignUpData>({
 		full_name: '',
 		phone: '',
@@ -32,6 +38,8 @@ const SignUpForm = () => {
 		});
 		if (credentials?.access_token) {
 			router.push('/profile/respondents');
+		} else if (credentials?.message) {
+			enqueueSnackbar(credentials?.message, { variant: 'error' });
 		}
 	}
 
@@ -45,8 +53,10 @@ const SignUpForm = () => {
 			justifyContent="space-between"
 			onSubmit={onSubmit}
 		>
-			<Grid flexDirection="column" container rowGap="30px">
+			<Grid flexDirection="column" container rowGap="40px">
+				<h1>Регистрация</h1>
 				<AuthInput
+					placeholder="Иванов Иван Иванович"
 					onChange={(event) =>
 						setFormData({ ...formData, full_name: event.target.value })
 					}
@@ -76,7 +86,17 @@ const SignUpForm = () => {
 					id="email"
 					name="email"
 					label="Введите почту"
+					placeholder="example@example.com"
 					type="email"
+					slotProps={{
+						input: {
+							startAdornment: (
+								<InputAdornment position="start">
+									<MailIcon />
+								</InputAdornment>
+							),
+						},
+					}}
 				/>
 				<AuthInput
 					onChange={(event) =>
@@ -86,10 +106,10 @@ const SignUpForm = () => {
 					id="password"
 					name="password"
 					label="Введите пароль"
+					placeholder="*********"
 					type="password"
 				/>
 				<FormControlLabel
-					required
 					checked={formData.approve_policy}
 					htmlFor="approve_policy"
 					control={
@@ -100,12 +120,22 @@ const SignUpForm = () => {
 									approve_policy: event.target.checked,
 								})
 							}
+							required
 							id="approve_policy"
 							sx={{ paddingTop: 0 }}
 							name="approve_policy"
 						/>
 					}
-					label="Я согласен(а) с условиями обработки персональных данных"
+					label={
+						<Typography
+							variant="body1"
+							component="span"
+							sx={{ '& a': { color: 'var(--primary-color)' } }}
+						>
+							Я согласен(а) с <Link href={''}>условиями</Link> обработки
+							персональных данных
+						</Typography>
+					}
 				/>
 			</Grid>
 
@@ -113,6 +143,11 @@ const SignUpForm = () => {
 				<Button fullWidth variant="contained" type="submit" size="large">
 					Зарегистрироваться
 				</Button>
+				<Grid className={classes.auth_form_link}>
+					<p>
+						Уже есть аккаунт? <Link href="/sign-in">Войдите</Link>
+					</p>
+				</Grid>
 			</Grid>
 		</Grid>
 	);

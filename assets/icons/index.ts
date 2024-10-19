@@ -4,3 +4,4 @@ export { default as AvatarIcon } from './avatar-icon';
 export { default as ArrowRight } from './arrow-right';
 export { default as SearchIcon } from './search-icon';
 export { default as LinkIcon } from './link-icon';
+export { default as MailIcon } from './mail-icon';

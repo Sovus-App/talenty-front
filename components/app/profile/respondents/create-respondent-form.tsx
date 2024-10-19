@@ -19,9 +19,11 @@ import { useRouter } from 'next/navigation';
 import { DatePicker } from '@/components';
 import moment from 'moment';
 import { parsePhone } from '@/tools';
+import { useSnackbar } from 'notistack';
 
 const CreateRespondentForm = () => {
 	const router = useRouter();
+	const { enqueueSnackbar } = useSnackbar();
 	const [formData, setFormData] = useState({
 		last_name: '',
 		name: '',
@@ -43,6 +45,8 @@ const CreateRespondentForm = () => {
 		const respondent = await createRespondent(data);
 		if (respondent?.uuid) {
 			router.push('/profile/respondents');
+		} else if (respondent?.message) {
+			enqueueSnackbar(respondent.message, { variant: 'error' });
 		}
 	}
 	return (

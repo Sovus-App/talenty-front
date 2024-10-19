@@ -1,32 +1,37 @@
 import { memo } from 'react';
 
-import {
-	ConfiguredColors,
-	HIDDEN_MOTIVATION_TESTING_COLORS,
-} from '@/lib/testing/hidden-motivation';
 import classes from '@/assets/styles/components/app/testing/hidden-motivation.module.scss';
 import { Grid2 as Grid } from '@mui/material';
+import {
+	HiddenMotivationColors,
+	ConfiguredColors,
+} from '@/lib/testing/hidden-motivation';
 
 interface CardProps {
+	colors: HiddenMotivationColors[];
 	color: string;
+	code: string;
 	draftConfiguredColors?: ConfiguredColors;
 	configuredLength: number;
 	setDraftConfiguredColors: (color?: ConfiguredColors) => void;
 }
 
 const Card = ({
+	colors,
 	color,
 	draftConfiguredColors,
 	configuredLength,
 	setDraftConfiguredColors,
+	code,
 }: CardProps) => {
 	const isSelected = color === draftConfiguredColors?.color;
 	const background = isSelected ? color + '70' : color;
 	const onClick = () => {
-		const value = HIDDEN_MOTIVATION_TESTING_COLORS.length - configuredLength;
+		const order = colors.length - configuredLength;
 		const updatedColor = {
 			color,
-			value,
+			order,
+			code,
 		};
 		isSelected && Object.assign(updatedColor, undefined);
 
@@ -42,17 +47,19 @@ const Card = ({
 };
 
 interface SetupProps {
+	colors: HiddenMotivationColors[];
 	configuredColors: ConfiguredColors[];
 	setDraftConfiguredColors: (color?: ConfiguredColors) => void;
 	draftConfiguredColors?: ConfiguredColors;
 }
 
 const Setup = ({
+	colors,
 	configuredColors,
 	setDraftConfiguredColors,
 	draftConfiguredColors,
 }: SetupProps) => {
-	const unConfiguredColors = HIDDEN_MOTIVATION_TESTING_COLORS.filter(
+	const unConfiguredColors = colors.filter(
 		(color_item) =>
 			!configuredColors?.some(
 				(selected_color_item) => selected_color_item.color === color_item.color,
@@ -62,8 +69,10 @@ const Setup = ({
 		<div className={classes.container}>
 			{unConfiguredColors.map((color_item) => (
 				<Card
+					colors={colors}
 					key={color_item.color}
 					color={color_item.color}
+					code={color_item.code}
 					draftConfiguredColors={draftConfiguredColors}
 					setDraftConfiguredColors={setDraftConfiguredColors}
 					configuredLength={configuredColors?.length}

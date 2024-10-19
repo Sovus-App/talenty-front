@@ -12,14 +12,17 @@ interface CreateRespondentDatepickerProps
 	extends Omit<DatePickerProps<Moment>, 'label'> {
 	id: string;
 	label: string;
+	size?: 'small' | 'medium';
 }
 
 const DatePicker = ({
 	id,
 	label,
+	size = 'small',
 	...props
 }: CreateRespondentDatepickerProps) => {
 	const maxYear = moment().get('year') - 18;
+
 	return (
 		<FormControl
 			sx={{
@@ -35,7 +38,8 @@ const DatePicker = ({
 						height: 16,
 					},
 					[`.${outlinedInputClasses.input}`]: {
-						padding: '4px 12px !important',
+						padding:
+							size === 'small' ? '8px 12px !important' : '12px 16px !important',
 					},
 				}}
 				maxDate={moment(`${maxYear}-12-31`)}

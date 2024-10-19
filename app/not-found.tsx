@@ -1,11 +1,11 @@
 import classes from '@/assets/styles/app/not-found.module.scss';
 import { Grid2 as Grid } from '@mui/material';
 import Link from 'next/link';
-import { DefaultLayout } from '@/components';
+import { ErrorLayout } from '@/components';
 
 export default async function NotFound() {
 	return (
-		<DefaultLayout>
+		<ErrorLayout>
 			<Grid gap="48px" container className={classes.notFound}>
 				<Grid>
 					<h1>Страница не найдена!</h1>
@@ -14,6 +14,6 @@ export default async function NotFound() {
 					Вернуться на главную
 				</Link>
 			</Grid>
-		</DefaultLayout>
+		</ErrorLayout>
 	);
 }

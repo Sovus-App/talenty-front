@@ -2,6 +2,13 @@ import { MUIComponentsType } from './';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 const muiInput: MUIComponentsType = {
+	MuiInputAdornment: {
+		styleOverrides: {
+			root: {
+				marginRight: 0,
+			},
+		},
+	},
 	MuiOutlinedInput: {
 		styleOverrides: {
 			root: {
@@ -22,7 +29,7 @@ const muiInput: MUIComponentsType = {
 					{
 						props: { size: 'small' },
 						style: {
-							padding: '4px 12px !important',
+							padding: '8px 12px !important',
 						},
 					},
 					{

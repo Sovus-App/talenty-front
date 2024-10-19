@@ -1,6 +1,6 @@
 'use client';
 
-import { DefaultLayout } from '@/components';
+import { ErrorLayout } from '@/components';
 import { Button, Grid2 as Grid } from '@mui/material';
 
 export default function Error({
@@ -11,13 +11,13 @@ export default function Error({
 	reset: () => void;
 }) {
 	return (
-		<DefaultLayout>
+		<ErrorLayout>
 			<Grid container flexDirection="column" gap="24px">
 				<h1>Что-то пошло не так!</h1>
-				<Button size="large" onClick={() => reset()}>
+				<Button variant="contained" size="large" onClick={() => reset()}>
 					Попробовать снова
 				</Button>
 			</Grid>
-		</DefaultLayout>
+		</ErrorLayout>
 	);
 }

@@ -19,4 +19,9 @@ export {
 	type SignUpResponse,
 	type SignUpData,
 } from './(auth)';
-export { useHiddenMotivation, useHiddenMotivationSetup } from './testing';
+export {
+	getTesting,
+	useHiddenMotivation,
+	useHiddenMotivationSetup,
+	usePersonalityAssessment,
+} from './testing';
