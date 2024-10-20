@@ -10,7 +10,7 @@ import {
 } from '@/lib';
 import { ArrowRight } from '@/assets/icons';
 import useSWR from 'swr';
-import { readFromLocalStorage } from '@/tools';
+import { getSurveyStatusProps, readFromLocalStorage } from '@/tools';
 import { useSearchParams } from 'next/navigation';
 
 const RespondentsTable = () => {
@@ -45,7 +45,6 @@ const RespondentsTable = () => {
 						component="div"
 						label={row.gender === 'male' ? 'мужской' : 'женский'}
 						sx={{
-							borderRadius: '4px',
 							background: '#F0F5F8',
 						}}
 					/>
@@ -55,7 +54,7 @@ const RespondentsTable = () => {
 		{ field: 'age', label: 'Возраст' },
 		{
 			field: 'survey_changed_at',
-			label: 'Дата тестирование',
+			label: 'Тест создан',
 			render: (row) => {
 				if (row.survey_changed_at) {
 					return row.survey_changed_at;
@@ -67,35 +66,37 @@ const RespondentsTable = () => {
 			field: 'survey_status',
 			label: 'Статус',
 			render: (row) => {
-				const status = {
-					color: 'inherit',
-					borderColor: 'transparent',
-					label: '-',
-				};
-				if (row.survey_status === 'completed') {
-					Object.assign(status, {
-						color: '#00995A',
-						borderColor: '#7FF9C6',
-						label: 'пройдено',
-					});
-				} else if (row.survey_status === 'not_completed') {
-					Object.assign(status, {
-						color: '#EB0000',
-						borderColor: '#FFE5E5',
-						label: 'не пройдено',
-					});
-				}
+				const props = getSurveyStatusProps(row.survey_status);
 				return (
 					<Chip
 						component="div"
-						label={status.label}
+						avatar={
+							<Grid
+								sx={{
+									borderRadius: '50%',
+									backgroundColor: props.color,
+									width: '6px !important',
+									height: '6px !important',
+								}}
+							/>
+						}
+						label={props.label}
 						sx={{
-							color: status.color,
-							border: `1px solid ${status.borderColor}`,
-							background: '#ffffff',
+							color: props.color,
+							backgroundColor: props.backgroundColor,
 						}}
 					/>
 				);
+			},
+		},
+		{
+			field: 'survey_completed_at',
+			label: 'Тест пройден',
+			render: (row) => {
+				if (row.survey_completed_at) {
+					return row.survey_completed_at;
+				}
+				return '–';
 			},
 		},
 		{
@@ -115,7 +116,7 @@ const RespondentsTable = () => {
 	return (
 		<Grid container flexDirection="column">
 			<Grid
-				maxHeight="30px"
+				maxHeight="40px"
 				container
 				marginBottom="16px"
 				justifyContent="space-between"
@@ -125,10 +126,10 @@ const RespondentsTable = () => {
 					size="small"
 					placeholder="Поиск респондента"
 					fullWidth
-					sx={{ maxWidth: 'var(--form-lg-max-width)' }}
+					sx={{ maxWidth: 'var(--form-max-width)' }}
 				/>
 				<Grid container>
-					<Button variant="contained" size="small">
+					<Button variant="contained" size="medium">
 						<Link href={'/profile/respondents/create'}>
 							Создать респондента
 						</Link>

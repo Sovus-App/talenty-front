@@ -17,6 +17,7 @@ export interface Respondent {
 	age: string;
 	survey_changed_at: string;
 	survey_status: 'completed' | 'not_completed' | string;
+	survey_completed_at: string;
 }
 
 export interface Surveys {

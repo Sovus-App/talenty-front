@@ -8,7 +8,7 @@ import {
 	HiddenMotivationTesting,
 } from '../hidden-motivation/types';
 import { submitTesting } from '../hidden-motivation';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 
 const useHiddenMotivation = ({
@@ -18,8 +18,9 @@ const useHiddenMotivation = ({
 	testingData: HiddenMotivationTesting;
 	configuredColors: ConfiguredColors[];
 }) => {
+	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
-	const params = useParams();
+	const params: { unique_token: string } = useParams();
 	const [timeToResponse, setTimeToResponse] = useState(0);
 	const [isIntroducePassed, setIsIntroducePassed] = useState(false);
 	const [draftSelectedAnswer, setDraftSelectedAnswer] = useState<
@@ -55,7 +56,7 @@ const useHiddenMotivation = ({
 			setCurrentQuestion(testingData.questions[updatedQuestionIndex]);
 		} else {
 			const response = await submitTesting({
-				respondent_unique_token: params?.unique_token as string,
+				respondent_unique_token: params?.unique_token,
 				hiddenMotivationTestingData: {
 					answers: updatedAnswers,
 					colors: configuredColors.map((color) => ({
@@ -65,7 +66,7 @@ const useHiddenMotivation = ({
 				},
 			});
 			if (response?.data) {
-				console.info('Success');
+				router.push(`/testing/${params?.unique_token}/passed`);
 			} else if (response?.error?.message) {
 				enqueueSnackbar(response.error.message, { variant: 'error' });
 			}

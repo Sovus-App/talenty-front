@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { RespondentLayout, RespondentCard } from '@/components';
+import { AsideLayout, RespondentCard } from '@/components';
 
 export const metadata: Metadata = {
 	title: 'Страница респондента',
@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
 	return (
-		<RespondentLayout>
+		<AsideLayout>
 			<RespondentCard />
-		</RespondentLayout>
+		</AsideLayout>
 	);
 }

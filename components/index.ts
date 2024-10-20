@@ -10,14 +10,14 @@ export {
 } from './app';
 export {
 	AuthLayout,
+	AsideLayout,
+	ErrorLayout,
+	TestingMain,
+	ProfileHeader,
 	DefaultLayout,
 	ProfileLayout,
-	ProfileHeader,
 	TestingLayout,
 	TestingHeader,
-	TestingMain,
-	RespondentLayout,
-	ErrorLayout,
 } from './layout';
 export { Dropdown } from './dropdown';
 export { Table } from './table';

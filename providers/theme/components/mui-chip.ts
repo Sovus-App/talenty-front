@@ -5,7 +5,7 @@ const muiChip: MUIComponentsType = {
 		styleOverrides: {
 			root: {
 				height: 'auto',
-				borderRadius: '4px',
+				borderRadius: '16px',
 				background: '#F0F5F8',
 				variants: [
 					{

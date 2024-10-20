@@ -58,119 +58,124 @@ const CreateRespondentForm = () => {
 			justifyContent="space-between"
 			onSubmit={onSubmit}
 		>
-			<Grid flexDirection="column" container rowGap="20px">
-				<CreateRespondentInput
-					required
-					name="name"
-					placeholder="Иван"
-					id="name-field"
-					label="Введите имя"
-					onChange={(event) =>
-						setFormData({ ...formData, name: event.target.value })
-					}
-					value={formData.name}
-				/>
-				<CreateRespondentInput
-					required
-					name="last_name"
-					placeholder="Иванов"
-					id="last-name-field"
-					label="Введите фамилию"
-					onChange={(event) =>
-						setFormData({ ...formData, last_name: event.target.value })
-					}
-					value={formData.last_name}
-				/>
-				<CreateRespondentInput
-					name="surname"
-					placeholder="Иванович"
-					id="surname-field"
-					label="Введите отчество"
-					onChange={(event) =>
-						setFormData({ ...formData, surname: event.target.value })
-					}
-					value={formData.surname}
-				/>
-				<FormControl>
-					<FormLabel id="gender-radio-buttons-group-label">Пол</FormLabel>
-					<RadioGroup
-						aria-labelledby="gender-radio-buttons-group-label"
-						defaultValue="male"
+			<Grid container gap="24px">
+				<Grid size={5} container rowGap="24px" flexDirection="column">
+					<CreateRespondentInput
+						required
+						name="name"
+						placeholder="Иван"
+						id="name-field"
+						label="Введите имя"
+						onChange={(event) =>
+							setFormData({ ...formData, name: event.target.value })
+						}
+						value={formData.name}
+					/>
+					<CreateRespondentInput
+						name="surname"
+						placeholder="Иванович"
+						id="surname-field"
+						label="Введите отчество"
+						onChange={(event) =>
+							setFormData({ ...formData, surname: event.target.value })
+						}
+						value={formData.surname}
+					/>
+					<FormControl required>
+						<FormLabel id="gender-radio-buttons-group-label">Пол</FormLabel>
+						<RadioGroup
+							aria-labelledby="gender-radio-buttons-group-label"
+							defaultValue="male"
+						>
+							<FormControlLabel
+								value="male"
+								htmlFor="gender-male-field"
+								control={
+									<Radio
+										onClick={() =>
+											setFormData({
+												...formData,
+												gender: 'male',
+											})
+										}
+										id="gender-male-field"
+									/>
+								}
+								label="Мужчина"
+							/>
+							<FormControlLabel
+								value="female"
+								htmlFor="gender-female-field"
+								control={
+									<Radio
+										onClick={() =>
+											setFormData({
+												...formData,
+												gender: 'male',
+											})
+										}
+										id="gender-female-field"
+									/>
+								}
+								label="Женщина"
+							/>
+						</RadioGroup>
+					</FormControl>
+					<CreateRespondentInput
+						name="email"
+						id="email-field"
+						label="Введите электронную почту"
+						type="email"
+						placeholder="example@examle.com"
+						onChange={(event) =>
+							setFormData({ ...formData, email: event.target.value })
+						}
+						value={formData.email}
+					/>
+				</Grid>
+				<Grid size={5} container rowGap="24px" flexDirection="column">
+					<CreateRespondentInput
+						required
+						name="last_name"
+						placeholder="Иванов"
+						id="last-name-field"
+						label="Введите фамилию"
+						onChange={(event) =>
+							setFormData({ ...formData, last_name: event.target.value })
+						}
+						value={formData.last_name}
+					/>
+					<DatePicker
+						required
+						id="date-birth-field"
+						label="Выберите дату рождения"
+						onChange={(date) =>
+							setFormData({
+								...formData,
+								date_of_birth: date?.format('YYYY-MM-DD') || '',
+							})
+						}
+						value={
+							formData.date_of_birth
+								? moment(formData.date_of_birth)
+								: undefined
+						}
+					/>
+					<PhoneInputMask<CreateRespondentInputProps>
+						value={formData.phone}
+						onChange={(event) =>
+							setFormData({ ...formData, phone: event.target.value })
+						}
 					>
-						<FormControlLabel
-							value="male"
-							htmlFor="gender-male-field"
-							control={
-								<Radio
-									onClick={() =>
-										setFormData({
-											...formData,
-											gender: 'male',
-										})
-									}
-									id="gender-male-field"
-								/>
-							}
-							label="Мужчина"
-						/>
-						<FormControlLabel
-							value="female"
-							htmlFor="gender-female-field"
-							control={
-								<Radio
-									onClick={() =>
-										setFormData({
-											...formData,
-											gender: 'male',
-										})
-									}
-									id="gender-female-field"
-								/>
-							}
-							label="Женщина"
-						/>
-					</RadioGroup>
-				</FormControl>
-
-				<DatePicker
-					id="date-birth-field"
-					label="Выберите дату рождения"
-					onChange={(date) =>
-						setFormData({
-							...formData,
-							date_of_birth: date?.format('YYYY-MM-DD') || '',
-						})
-					}
-					value={
-						formData.date_of_birth ? moment(formData.date_of_birth) : undefined
-					}
-				/>
-				<PhoneInputMask<CreateRespondentInputProps>
-					value={formData.phone}
-					onChange={(event) =>
-						setFormData({ ...formData, phone: event.target.value })
-					}
-				>
-					{(inputProps) => (
-						<CreateRespondentInput
-							{...inputProps}
-							id="phone-field"
-							label="Введите номер телефона"
-						/>
-					)}
-				</PhoneInputMask>
-
-				<CreateRespondentInput
-					name="email"
-					id="email-field"
-					label="Введите электронную почту"
-					type="email"
-					placeholder="example@examle.com"
-					onChange={(event) =>
-						setFormData({ ...formData, email: event.target.value })
-					}
-					value={formData.email}
-				/>
+						{(inputProps) => (
+							<CreateRespondentInput
+								{...inputProps}
+								id="phone-field"
+								label="Введите номер телефона"
+							/>
+						)}
+					</PhoneInputMask>
+				</Grid>
 			</Grid>
 			<Grid container gap="16px">
 				<Button size="small" type="submit" variant="contained">

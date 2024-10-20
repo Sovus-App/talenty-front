@@ -17,8 +17,8 @@ const muiTable: MUIComponentsType = {
 				borderBottom: '1px solid #C9D8E8',
 			},
 			head: {
-				color: '#141414',
-				fontWeight: 600,
+				fontSize: '14px',
+				color: '#414651',
 				borderBottom: '2px solid #C9D8E8',
 			},
 		},

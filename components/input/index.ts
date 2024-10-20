@@ -5,3 +5,4 @@ export {
 	type CreateRespondentInputProps,
 } from './create-respondent-input';
 export { default as PhoneInputMask } from './phone-input';
+export { default as Asterisk } from './asterisk';

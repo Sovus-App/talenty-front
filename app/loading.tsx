@@ -4,7 +4,7 @@ import { DefaultLayout } from '@/components';
 export default function Loading() {
 	return (
 		<DefaultLayout>
-			<Skeleton height="var(--layout-lg-min-height)" variant="rectangular" />
+			<Skeleton height="var(--layout-min-height)" variant="rectangular" />
 		</DefaultLayout>
 	);
 }

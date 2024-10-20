@@ -20,7 +20,15 @@ function AppProviders({ children }: AppProvidersProps) {
 	return (
 		<AuthProvider>
 			<SWRConfig value={{ onError: (error) => enqueueSnackbar(error.message) }}>
-				<SnackbarProvider dense maxSnack={5} hideIconVariant>
+				<SnackbarProvider
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					dense
+					maxSnack={5}
+					hideIconVariant
+				>
 					<AppRouterCacheProvider>
 						<MUIXDatePickerProvider>
 							<ThemeProvider theme={theme}>{children}</ThemeProvider>

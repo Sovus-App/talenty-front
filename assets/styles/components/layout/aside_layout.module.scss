@@ -1,0 +1,24 @@
+.aside_layout {
+  max-width: var(--layout-profile-max-width);
+  display: flex;
+  gap: 24px;
+  &_container {
+    padding: 24px;
+    border-radius: 8px;
+    min-width: var(--layout-aside-content-max-width);
+    background-color: var(--layout-background-color);
+  }
+  &_aside_content {
+    padding-top: 24px;
+    max-height: fit-content;
+    min-width: 285px;
+    border-radius: 8px;
+    max-width: 285px;
+    min-height: 330px;
+    background-color: var(--layout-background-color);
+    & h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+  }
+}

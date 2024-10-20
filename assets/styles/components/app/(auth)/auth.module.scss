@@ -1,9 +1,9 @@
 .auth_form {
-  max-width: var(--form-lg-max-width);
+  max-width: var(--form-max-width);
   margin: 0 auto;
   height: 100%;
   padding: 32px 0;
-  min-height: var(--layout-lg-min-height);
+  min-height: var(--layout-min-height);
   &_link {
     & p {
       padding-top: 16px;

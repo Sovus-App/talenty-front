@@ -47,7 +47,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
 	return !isAuthenticated && isPrivateRoute ? (
 		<DefaultLayout>
-			<Skeleton height="var(--layout-lg-min-height)" variant="rectangular" />
+			<Skeleton height="var(--layout-min-height)" variant="rectangular" />
 		</DefaultLayout>
 	) : (
 		children

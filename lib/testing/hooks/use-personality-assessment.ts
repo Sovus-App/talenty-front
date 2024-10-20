@@ -22,7 +22,7 @@ const usePersonalityAssessment = ({
 	const { enqueueSnackbar } = useSnackbar();
 	const router = useRouter();
 	const [timerCount, setTimerCount] = useState(DEFAULT_TIMER_COUNT);
-	const params = useParams();
+	const params: { unique_token: string } = useParams();
 	const [isIntroducePassed, setIsIntroducePassed] = useState(false);
 	const [questionIndex, setQuestionIndex] = useState(0);
 	const [currentQuestionAnswers, setCurrentQuestionAnswers] = useState<
@@ -84,7 +84,7 @@ const usePersonalityAssessment = ({
 				);
 			} else {
 				const response = await submitTesting({
-					respondent_unique_token: params?.unique_token as string,
+					respondent_unique_token: params?.unique_token,
 					personalityAssessmentTestingData: {
 						answers: updatedSubmittedAnswers,
 					},
@@ -94,9 +94,9 @@ const usePersonalityAssessment = ({
 						testingData.survey.kind ===
 						'personality_assessment_and_hidden_motivation'
 					) {
-						router.push(
-							`/testing/${params?.unique_token as string}/hidden_motivation`,
-						);
+						router.push(`/testing/${params?.unique_token}/hidden_motivation`);
+					} else {
+						router.push(`/testing/${params?.unique_token}/passed`);
 					}
 				} else if (response?.error?.message) {
 					enqueueSnackbar(response.error.message, { variant: 'error' });

@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, useCallback, useMemo } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import {
 	Grid2 as Grid,
@@ -11,6 +11,7 @@ import {
 	TableBody,
 	TablePagination,
 	Skeleton,
+	Pagination,
 } from '@mui/material';
 import { TableProps } from './types';
 
@@ -47,6 +48,13 @@ const Table = <T,>({
 		},
 		[pathname, router, searchParams],
 	);
+
+	const paginationCount = useMemo(() => {
+		if (dataTotalCount && per_page) {
+			return Math.ceil(dataTotalCount / Number(per_page));
+		}
+		return 0;
+	}, [per_page, dataTotalCount]);
 
 	const TableBodyContent = () => {
 		if (loading) {
@@ -95,7 +103,9 @@ const Table = <T,>({
 
 	return (
 		<Grid>
-			<TableContainer sx={{ maxHeight: 650 }}>
+			<TableContainer
+				sx={{ maxHeight: 600, minHeight: 600, marginBottom: '16px' }}
+			>
 				<MUITable stickyHeader aria-label="sticky table">
 					{!hideHead ? (
 						<TableHead>
@@ -118,19 +128,35 @@ const Table = <T,>({
 				</MUITable>
 			</TableContainer>
 			{withPagination && dataTotalCount ? (
-				<TablePagination
-					labelRowsPerPage="Показывать по:"
-					labelDisplayedRows={({ from, count, to }) => {
-						return `${from}-${to} из ${count}`;
-					}}
-					rowsPerPageOptions={limitOptions}
-					component="div"
-					count={dataTotalCount}
-					rowsPerPage={Number(per_page)}
-					page={Number(current_page)}
-					onPageChange={(_, page) => onCurrentPageChange(page)}
-					onRowsPerPageChange={onPerPageChange}
-				/>
+				<Grid alignItems="center" justifyContent="space-between" container>
+					<Pagination
+						hidePrevButton
+						hideNextButton
+						shape="rounded"
+						count={paginationCount}
+						page={Number(current_page) + 1}
+						onChange={(_, page) => onCurrentPageChange(page - 1)}
+					/>
+					<TablePagination
+						slotProps={{
+							actions: {
+								previousButton: { style: { display: 'none' } },
+								nextButton: { style: { display: 'none' } },
+							},
+						}}
+						labelRowsPerPage="Показывать по:"
+						labelDisplayedRows={({ count }) => {
+							return ` из ${count}`;
+						}}
+						rowsPerPageOptions={limitOptions}
+						component="div"
+						count={dataTotalCount}
+						rowsPerPage={Number(per_page)}
+						page={Number(current_page)}
+						onPageChange={(_, page) => onCurrentPageChange(page)}
+						onRowsPerPageChange={onPerPageChange}
+					/>
+				</Grid>
 			) : null}
 		</Grid>
 	);

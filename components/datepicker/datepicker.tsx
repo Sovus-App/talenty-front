@@ -7,12 +7,14 @@ import {
 } from '@mui/x-date-pickers';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import moment, { Moment } from 'moment';
+import { Asterisk } from '@/components/input';
 
 interface CreateRespondentDatepickerProps
 	extends Omit<DatePickerProps<Moment>, 'label'> {
 	id: string;
 	label: string;
 	size?: 'small' | 'medium';
+	required?: boolean;
 }
 
 const DatePicker = ({
@@ -29,7 +31,9 @@ const DatePicker = ({
 				'& label': { marginBottom: '8px', fontSize: '14px' },
 			}}
 		>
-			<label htmlFor={id}>{label}</label>
+			<label htmlFor={id}>
+				{label} {props.required ? <Asterisk /> : null}
+			</label>
 			<MUIDatePicker
 				{...props}
 				sx={{
@@ -47,7 +51,7 @@ const DatePicker = ({
 					layout: {
 						sx: {
 							[`.${pickersDayClasses.selected}`]: {
-								color: '#ffffff',
+								color: '#ffffff !important',
 							},
 							[`.${pickersCalendarHeaderClasses.label}`]: {
 								textTransform: 'capitalize',
