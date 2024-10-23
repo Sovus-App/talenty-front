@@ -15,13 +15,13 @@ export interface HiddenMotivationQuestion {
 }
 
 export interface HiddenMotivationAnswer {
-	question_code: string;
-	color_code: string;
+	question_code: number;
+	color_code: number;
 	time_to_response: number;
 }
 
 export interface HiddenMotivationSubmit {
-	colors: Omit<ConfiguredColors, 'color'>[];
+	colors: { code: number; order: number }[];
 	answers: HiddenMotivationAnswer[];
 }
 

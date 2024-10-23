@@ -5,7 +5,7 @@ export interface PersonalityAssessmentAnswer {
 }
 
 export interface PersonalityAssessmentSubmitted {
-	items: Omit<PersonalityAssessmentAnswer, 'text'>[];
+	items: { code: number; value: number }[];
 	time_to_response: number;
 }
 

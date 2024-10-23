@@ -1,6 +1,6 @@
 import { HiddenMotivationSubmit } from './types';
 
-const HIDDEN_MOTIVATION_API_ROUTE = '/api/internal/respondents_testing';
+const HIDDEN_MOTIVATION_API_ROUTE = 'api/internal/respondent_testings';
 
 export async function submitTesting({
 	respondent_unique_token,
@@ -16,7 +16,7 @@ export async function submitTesting({
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ data: hiddenMotivationTestingData }),
+			body: JSON.stringify(hiddenMotivationTestingData),
 		},
 	);
 	return await response.json();

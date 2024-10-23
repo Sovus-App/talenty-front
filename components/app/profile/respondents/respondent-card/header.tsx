@@ -12,7 +12,12 @@ interface HeaderProps {
 }
 
 const Chip = ({ label }: { label?: string }) => (
-	<MuiChip label={label} size="medium" component="li" />
+	<MuiChip
+		label={label}
+		sx={{ background: 'none', padding: 0 }}
+		size="medium"
+		component="li"
+	/>
 );
 
 const Header = ({ respondent }: HeaderProps) => {

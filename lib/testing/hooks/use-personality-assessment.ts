@@ -11,6 +11,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { ButtonProps } from '@mui/material';
 import { Survey } from '@/lib/testing/types';
 import { useSnackbar } from 'notistack';
+import moment from 'moment';
 
 const DEFAULT_TIMER_COUNT = 30;
 
@@ -21,6 +22,7 @@ const usePersonalityAssessment = ({
 }) => {
 	const { enqueueSnackbar } = useSnackbar();
 	const router = useRouter();
+	const [timeToResponse, setTimeToResponse] = useState(new Date());
 	const [timerCount, setTimerCount] = useState(DEFAULT_TIMER_COUNT);
 	const params: { unique_token: string } = useParams();
 	const [isIntroducePassed, setIsIntroducePassed] = useState(false);
@@ -64,14 +66,19 @@ const usePersonalityAssessment = ({
 
 	const onQuestionChange = useCallback(
 		async (selected_answers: PersonalityAssessmentAnswer[]) => {
+			const now = new Date();
 			const updatedSubmittedAnswers = [
 				...submittedAnswers,
 				{
-					items: selected_answers.map(({ code, value }) => ({ code, value })),
-					time_to_response: DEFAULT_TIMER_COUNT - timerCount,
+					items: selected_answers.map(({ code, value }) => ({
+						code: Number(code),
+						value,
+					})),
+					time_to_response: moment(now).diff(timeToResponse, 'milliseconds'),
 				},
 			];
 			setSubmittedAnswers(updatedSubmittedAnswers);
+			setTimeToResponse(new Date());
 			if (!isLastQuestion) {
 				setTimerCount(30);
 				const updatedQuestionIndex = questionIndex + 1;
@@ -94,7 +101,7 @@ const usePersonalityAssessment = ({
 						testingData.survey.kind ===
 						'personality_assessment_and_hidden_motivation'
 					) {
-						router.push(`/testing/${params?.unique_token}/hidden_motivation`);
+						router.push(`/testing/${params?.unique_token}/hidden-motivation`);
 					} else {
 						router.push(`/testing/${params?.unique_token}/passed`);
 					}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
 	ConfiguredColors,
 	HiddenMotivationAnswer,
@@ -10,6 +10,7 @@ import {
 import { submitTesting } from '../hidden-motivation';
 import { useParams, useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
+import moment from 'moment/moment';
 
 const useHiddenMotivation = ({
 	testingData,
@@ -21,7 +22,7 @@ const useHiddenMotivation = ({
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
 	const params: { unique_token: string } = useParams();
-	const [timeToResponse, setTimeToResponse] = useState(0);
+	const [timeToResponse, setTimeToResponse] = useState(new Date());
 	const [isIntroducePassed, setIsIntroducePassed] = useState(false);
 	const [draftSelectedAnswer, setDraftSelectedAnswer] = useState<
 		ConfiguredColors | undefined
@@ -39,16 +40,17 @@ const useHiddenMotivation = ({
 	);
 
 	const onQuestionChange = useCallback(async () => {
+		const now = new Date();
 		const updatedAnswers = [
 			...submittedAnswers,
 			{
-				question_code: currentQuestion?.code || '',
-				color_code: draftSelectedAnswer?.code || '',
-				time_to_response: timeToResponse,
+				question_code: Number(currentQuestion?.code),
+				color_code: Number(draftSelectedAnswer?.code),
+				time_to_response: moment(now).diff(timeToResponse, 'milliseconds'),
 			},
 		];
 		setSubmittedAnswers(updatedAnswers);
-		setTimeToResponse(0);
+		setTimeToResponse(now);
 		if (!isLastQuestion) {
 			const updatedQuestionIndex = questionIndex + 1;
 			setQuestionIndex(updatedQuestionIndex);
@@ -61,7 +63,7 @@ const useHiddenMotivation = ({
 					answers: updatedAnswers,
 					colors: configuredColors.map((color) => ({
 						order: color.order,
-						code: color.code,
+						code: Number(color.code),
 					})),
 				},
 			});
@@ -96,16 +98,6 @@ const useHiddenMotivation = ({
 		disabled: isIntroducePassed ? !draftSelectedAnswer : false,
 		children: !isIntroducePassed ? 'Продолжить прохождение' : 'Далее',
 	};
-
-	useEffect(() => {
-		if (isIntroducePassed) {
-			const timer = setInterval(
-				() => setTimeToResponse(timeToResponse + 1),
-				1000,
-			);
-			return () => clearInterval(timer);
-		}
-	}, [timeToResponse, isIntroducePassed]);
 
 	return {
 		buttonProps,

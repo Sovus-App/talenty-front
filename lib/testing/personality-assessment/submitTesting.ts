@@ -1,6 +1,6 @@
 import { PersonalityAssessmentSubmitted } from './types';
 
-const PERSONALITY_ASSESSMENT_API_ROUTE = '/api/internal/respondents_testing';
+const PERSONALITY_ASSESSMENT_API_ROUTE = 'api/internal/respondent_testings';
 
 export async function submitTesting({
 	respondent_unique_token,
@@ -18,7 +18,7 @@ export async function submitTesting({
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ data: personalityAssessmentTestingData }),
+			body: JSON.stringify(personalityAssessmentTestingData),
 		},
 	);
 	return await response.json();

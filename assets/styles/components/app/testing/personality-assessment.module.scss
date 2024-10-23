@@ -26,6 +26,7 @@
   color: #414651;
   & span {
     user-select: none;
+    pointer-events: none;
     position: absolute;
     top: 50%;
     width: max-content;
