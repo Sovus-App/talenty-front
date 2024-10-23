@@ -3,7 +3,7 @@
 ## Стек
 
 - [next.js](https://nextjs.org/)
-- [node v18.17](https://nodejs.org/en/blog/announcements/v18-release-announce)
+- [node v18.17](https://github.com/nvm-sh/nvm)
 - [material-ui](https://mui.com/)
 - [scss](https://sass-lang.com/)
 - [swr](https://swr.vercel.app/ru)
