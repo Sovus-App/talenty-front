@@ -7,7 +7,7 @@ import '@/assets/styles/globals.css';
 
 const inter = Inter({
 	subsets: ['cyrillic'],
-	weight: ['300', '400', '500', '700'],
+	weight: ['300', '400', '500', '600', '700'],
 	display: 'swap',
 	variable: '--font-inter',
 });

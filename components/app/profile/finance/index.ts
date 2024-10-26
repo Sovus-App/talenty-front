@@ -1,1 +1,1 @@
-export { default as FinanceTable } from './finance-table';
+export { default as FinanceContainer } from './container';

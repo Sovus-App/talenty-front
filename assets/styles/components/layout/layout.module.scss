@@ -22,24 +22,54 @@
 .profile_layout {
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-profile-max-width);
+	box-shadow: var(--layout-box-shadow);
+	border: var(--layout-border);
+}
+
+.profile_header {
+	max-width: var(--layout-profile-max-width);
 }
 
 .auth_layout {
 	background-color: var(--layout-background-color);
+	max-width: var(--layout-auth-max-width);
+	box-shadow: var(--layout-box-shadow);
+	border: var(--layout-border);
+}
+
+.auth_header {
 	max-width: var(--layout-auth-max-width);
 }
 
 .default_layout {
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-default-max-width);
+	box-shadow: var(--layout-box-shadow);
+	border: var(--layout-border);
+}
+
+.default_header {
+	max-width: var(--layout-default-max-width);
 }
 
 .testing_layout {
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-testing-max-width);
+	box-shadow: var(--layout-box-shadow);
+	border: var(--layout-border);
+}
+
+.testing_header {
+	max-width: var(--layout-testing-max-width);
 }
 
 .error_layout {
 	background-color: var(--layout-background-color);
+	max-width: var(--layout-error-max-width);
+	box-shadow: var(--layout-box-shadow);
+	border: var(--layout-border);
+}
+
+.error_header{
 	max-width: var(--layout-error-max-width);
 }

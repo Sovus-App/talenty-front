@@ -23,7 +23,7 @@ const Header = () => {
 	};
 
 	return (
-		<header className={classes.profile_layout}>
+		<header className={classes.profile_header}>
 			<Grid
 				gap="0px 12px"
 				container

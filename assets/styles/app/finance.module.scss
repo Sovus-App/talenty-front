@@ -9,8 +9,22 @@
     }
   }
   &_transactions {
-    & h2 {
+    &_header {
+      display: flex;
+      justify-content: space-between;
       margin-bottom: 16px;
     }
+  }
+  &_transactions,&_header {
+    box-shadow: var(--layout-box-shadow);
+    border: var(--layout-border);
+    padding: 24px;
+    border-radius: 8px;
+    background: var(--layout-background-color);
+  }
+  &_header {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
   }
 }

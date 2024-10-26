@@ -20,8 +20,8 @@ export {
 	type SignUpData,
 } from './(auth)';
 export {
-	getTesting,
+	getSurvey,
 	useHiddenMotivation,
 	useHiddenMotivationSetup,
 	usePersonalityAssessment,
-} from './testing';
+} from './survey';

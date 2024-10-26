@@ -5,13 +5,29 @@
 }
 
 .create_respondent {
-  max-width: 800px;
+  background: var(--layout-background-color);
+  box-shadow: var(--layout-box-shadow);
+  border: var(--layout-border);
+  padding: 24px;
+  border-radius: 8px;
 	& h1 {
 		margin-bottom: 40px;
 	}
 }
 
 .respondent_card {
+  &_testing_history,&_header,&_reports {
+    background: var(--layout-background-color);
+    box-shadow: var(--layout-box-shadow);
+    border: var(--layout-border);
+    padding: 24px;
+    border-radius: 8px;
+  }
+  &_testing_history {
+    & h2 {
+      margin-bottom: 16px;
+    }
+  }
 	&_header {
     margin-bottom: 40px;
     & h1 {
@@ -26,7 +42,7 @@
           width: 4px;
           height: 4px;
           position: absolute;
-          right: -8px;
+          right: -2px;
           top: 2px;
         }
       }

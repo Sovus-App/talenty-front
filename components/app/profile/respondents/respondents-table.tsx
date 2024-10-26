@@ -12,6 +12,7 @@ import { ArrowRight } from '@/assets/icons';
 import useSWR from 'swr';
 import { getSurveyStatusProps, readFromLocalStorage } from '@/tools';
 import { useSearchParams } from 'next/navigation';
+import moment from 'moment';
 
 const RespondentsTable = () => {
 	const token = readFromLocalStorage('token');
@@ -57,7 +58,7 @@ const RespondentsTable = () => {
 			label: 'Тест создан',
 			render: (row) => {
 				if (row.survey_changed_at) {
-					return row.survey_changed_at;
+					return moment(row.survey_changed_at).format('DD.MM.YYYY');
 				}
 				return '–';
 			},
@@ -94,7 +95,7 @@ const RespondentsTable = () => {
 			label: 'Тест пройден',
 			render: (row) => {
 				if (row.survey_completed_at) {
-					return row.survey_completed_at;
+					return moment(row.survey_completed_at).format('DD.MM.YYYY');
 				}
 				return '–';
 			},
@@ -142,6 +143,7 @@ const RespondentsTable = () => {
 				dataTotalCount={respondentsData?.meta?.total_count}
 				data={respondentsData?.data?.respondents || []}
 				columns={columns}
+				sx={{ maxHeight: 600, minHeight: 600 }}
 			/>
 		</Grid>
 	);

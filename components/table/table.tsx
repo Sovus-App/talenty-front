@@ -26,6 +26,7 @@ const Table = <T,>({
 	dataTotalCount,
 	withPagination = true,
 	hideHead = false,
+	sx,
 }: TableProps<T>) => {
 	const router = useRouter();
 	const pathname = usePathname();
@@ -103,9 +104,7 @@ const Table = <T,>({
 
 	return (
 		<Grid>
-			<TableContainer
-				sx={{ maxHeight: 600, minHeight: 600, marginBottom: '16px' }}
-			>
+			<TableContainer sx={{ marginBottom: '16px', ...sx }}>
 				<MUITable stickyHeader aria-label="sticky table">
 					{!hideHead ? (
 						<TableHead>

@@ -3,4 +3,4 @@ export {
 	RespondentsTable,
 	CreateRespondentForm,
 } from './respondents';
-export { FinanceTable } from './finance';
+export { FinanceContainer } from './finance';

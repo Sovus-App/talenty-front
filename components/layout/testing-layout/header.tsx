@@ -4,7 +4,7 @@ import { TalentyIcon } from '@/assets/icons';
 
 const Header = () => {
 	return (
-		<header className={classes.testing_layout}>
+		<header className={classes.testing_header}>
 			<Grid
 				container
 				justifyContent="center"

@@ -1,20 +1,24 @@
 .aside_layout {
   max-width: var(--layout-profile-max-width);
-  display: flex;
   gap: 24px;
-  &_container {
-    padding: 24px;
-    border-radius: 8px;
-    min-width: var(--layout-aside-content-max-width);
-    background-color: var(--layout-background-color);
+  &_content {
+    gap: 24px;
+    display: flex;
+    &_container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: var(--layout-respondent-profile-container-max-width);
+      width: 100%;
+    }
   }
   &_aside_content {
-    padding-top: 24px;
+    padding: 24px;
+    flex-grow: 1;
+    box-shadow: var(--layout-box-shadow);
+    border: var(--layout-border);
     max-height: fit-content;
-    min-width: 285px;
     border-radius: 8px;
-    max-width: 285px;
-    min-height: 330px;
     background-color: var(--layout-background-color);
     & h2 {
       font-size: 24px;

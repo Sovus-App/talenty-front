@@ -11,6 +11,9 @@ const muiTable: MUIComponentsType = {
 	MuiTableCell: {
 		styleOverrides: {
 			root: {
+				fontSize: '15px',
+				lineHeight: '20px',
+				padding: '8px',
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
 				overflow: 'hidden',

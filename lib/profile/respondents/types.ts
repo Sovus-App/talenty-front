@@ -7,6 +7,11 @@ export interface CreateRespondentData {
 }
 
 export interface CreateRespondentResponse {
+	date_of_birth: string;
+	email: string;
+	full_name: string;
+	gender: string;
+	phone: string;
 	uuid: string;
 }
 
@@ -21,10 +26,10 @@ export interface Respondent {
 }
 
 export interface Surveys {
-	number: number;
+	id: number;
 	survey_changed_at: string;
 	survey_status: 'completed' | 'not_completed' | string;
-	link_for_respondent: string;
+	survey_uuid: string;
 }
 
 export interface RespondentDetail {

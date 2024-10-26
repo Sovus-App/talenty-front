@@ -5,13 +5,19 @@ import Aside from './aside';
 interface LayoutProps {
 	children: ReactNode;
 	aside?: ReactNode;
+	header?: ReactNode;
 }
 
-const Layout = ({ children, aside }: LayoutProps) => {
+const Layout = ({ children, aside, header }: LayoutProps) => {
 	return (
 		<main className={classes.aside_layout}>
-			<div className={classes.aside_layout_container}>{children}</div>
-			{aside ? <Aside>{aside}</Aside> : null}
+			{Boolean(header) && (
+				<div className={classes.aside_layout_header}>{header}</div>
+			)}
+			<div className={classes.aside_layout_content}>
+				<div className={classes.aside_layout_content_container}>{children}</div>
+				{Boolean(aside) && <Aside>{aside}</Aside>}
+			</div>
 		</main>
 	);
 };

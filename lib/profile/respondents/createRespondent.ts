@@ -18,7 +18,7 @@ export async function createRespondent(formData: CreateRespondentData) {
 	);
 	const { data, error } = await response.json();
 	if (data) {
-		return data as CreateRespondentResponse;
+		return data.respondent as CreateRespondentResponse;
 	}
 	return error;
 }

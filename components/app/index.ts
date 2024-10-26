@@ -3,9 +3,6 @@ export {
 	RespondentsTable,
 	RespondentCard,
 	CreateRespondentForm,
-	FinanceTable,
+	FinanceContainer,
 } from './profile';
-export {
-	HiddenMotivationTestingContainer,
-	PersonalityAssessmentTestingContainer,
-} from './testing';
+export { SurveysContainer } from './survey';

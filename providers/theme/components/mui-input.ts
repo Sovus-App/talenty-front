@@ -23,6 +23,11 @@ const muiInput: MUIComponentsType = {
 	},
 	MuiInputBase: {
 		styleOverrides: {
+			multiline: {
+				'& textarea': {
+					padding: '0 !important',
+				},
+			},
 			input: {
 				height: 'max-content',
 				variants: [

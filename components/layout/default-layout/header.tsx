@@ -5,7 +5,7 @@ import { Grid2 as Grid } from '@mui/material';
 
 const Header = () => {
 	return (
-		<header className={classes.default_layout}>
+		<header className={classes.default_header}>
 			<Grid
 				container
 				justifyContent="center"

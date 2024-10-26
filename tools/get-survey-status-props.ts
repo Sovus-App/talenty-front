@@ -8,8 +8,8 @@ const getSurveyStatusProps = (
 	};
 	if (survey_status === 'completed') {
 		Object.assign(props, {
-			color: '#00995A',
-			backgroundColor: '#7FF9C6',
+			color: '#027A48',
+			backgroundColor: '#ECFDF3',
 			label: 'Пройдено',
 		});
 	} else if (survey_status === 'not_completed') {

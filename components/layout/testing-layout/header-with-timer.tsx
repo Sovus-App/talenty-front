@@ -14,7 +14,7 @@ const HeaderWithTimer = ({
 	timerCount,
 }: HeaderWithTimerProps) => {
 	return (
-		<header className={classes.testing_layout}>
+		<header className={classes.testing_header}>
 			<Grid
 				container
 				justifyContent="space-between"

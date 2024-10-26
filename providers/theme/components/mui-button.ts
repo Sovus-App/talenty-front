@@ -1,4 +1,11 @@
+import '@mui/material';
 import { MUIComponentsType } from './';
+
+declare module '@mui/material/Button' {
+	interface ButtonPropsVariantOverrides {
+		secondary: true;
+	}
+}
 
 const muiButton: MUIComponentsType = {
 	MuiButton: {
@@ -15,13 +22,14 @@ const muiButton: MUIComponentsType = {
 						props: { size: 'small' },
 						style: {
 							padding: '4px 12px',
-							borderRadius: '4px',
+							borderRadius: '8px',
 						},
 					},
 					{
 						props: { size: 'medium' },
 						style: {
-							padding: '8px 12px',
+							fontSize: '15px',
+							padding: '6px 12px',
 							borderRadius: '8px',
 						},
 					},
@@ -30,6 +38,13 @@ const muiButton: MUIComponentsType = {
 						style: {
 							padding: '12px 16px',
 							borderRadius: '12px',
+						},
+					},
+					{
+						props: { variant: 'secondary' },
+						style: {
+							background: '#E7F5FF',
+							color: 'var(--primary-color)',
 						},
 					},
 					{

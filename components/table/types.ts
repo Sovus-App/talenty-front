@@ -11,6 +11,7 @@ export interface Columns<T> {
 }
 
 export interface TableProps<T> {
+	sx?: SxProps;
 	loading?: boolean;
 	dataTotalCount?: number;
 	limitOptions?: number[];
