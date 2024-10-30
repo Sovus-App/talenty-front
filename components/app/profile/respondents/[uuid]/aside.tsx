@@ -1,6 +1,6 @@
 import { Button, Grid2 as Grid, TextField } from '@mui/material';
 
-import classes from '@/assets/styles/app/respondents.module.scss';
+import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
 const Aside = () => {
 	return (

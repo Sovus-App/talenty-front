@@ -1,7 +1,15 @@
-.respondents {
-	& h1 {
-		margin-bottom: 40px;
-	}
+.empty_respondents_table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & h1 {
+    margin-bottom: 24px;
+  }
 }
 
 .create_respondent {
@@ -49,3 +57,4 @@
     }
 	}
 }
+

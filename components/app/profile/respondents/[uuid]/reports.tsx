@@ -2,7 +2,7 @@
 import { List } from '@/components';
 import { Button, Grid2 as Grid } from '@mui/material';
 
-import classes from '@/assets/styles/app/respondents.module.scss';
+import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
 const Reports = () => {
 	return (

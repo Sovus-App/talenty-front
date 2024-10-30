@@ -15,7 +15,10 @@ export interface TableProps<T> {
 	loading?: boolean;
 	dataTotalCount?: number;
 	limitOptions?: number[];
-	withPagination?: boolean;
+	pagination?: {
+		limit: boolean;
+		pages: boolean;
+	};
 	data: T[];
 	columns: Columns<T>[];
 	hideHead?: boolean;

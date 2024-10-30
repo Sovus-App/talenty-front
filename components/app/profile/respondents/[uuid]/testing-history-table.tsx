@@ -7,7 +7,7 @@ import { Surveys } from '@/lib';
 import { Button, Chip, Grid2 as Grid } from '@mui/material';
 import { LinkIcon } from '@/assets/icons';
 
-import classes from '@/assets/styles/app/respondents.module.scss';
+import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
 interface TestingHistoryTableProps {
 	tableData?: Surveys[];
@@ -80,7 +80,8 @@ const TestingHistoryTable = ({ tableData }: TestingHistoryTableProps) => {
 			{tableData ? (
 				<Table<Surveys>
 					hideHead
-					withPagination={false}
+					dataTotalCount={1}
+					pagination={{ pages: true, limit: false }}
 					data={tableData}
 					columns={columns}
 				/>

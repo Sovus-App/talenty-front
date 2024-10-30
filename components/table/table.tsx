@@ -24,7 +24,10 @@ const Table = <T,>({
 	loading,
 	limitOptions = [10, 25, 50],
 	dataTotalCount,
-	withPagination = true,
+	pagination = {
+		pages: true,
+		limit: true,
+	},
 	hideHead = false,
 	sx,
 }: TableProps<T>) => {
@@ -126,35 +129,40 @@ const Table = <T,>({
 					</TableBody>
 				</MUITable>
 			</TableContainer>
-			{withPagination && dataTotalCount ? (
+			{dataTotalCount ? (
 				<Grid alignItems="center" justifyContent="space-between" container>
-					<Pagination
-						hidePrevButton
-						hideNextButton
-						shape="rounded"
-						count={paginationCount}
-						page={Number(current_page) + 1}
-						onChange={(_, page) => onCurrentPageChange(page - 1)}
-					/>
-					<TablePagination
-						slotProps={{
-							actions: {
-								previousButton: { style: { display: 'none' } },
-								nextButton: { style: { display: 'none' } },
-							},
-						}}
-						labelRowsPerPage="Показывать по:"
-						labelDisplayedRows={({ count }) => {
-							return ` из ${count}`;
-						}}
-						rowsPerPageOptions={limitOptions}
-						component="div"
-						count={dataTotalCount}
-						rowsPerPage={Number(per_page)}
-						page={Number(current_page)}
-						onPageChange={(_, page) => onCurrentPageChange(page)}
-						onRowsPerPageChange={onPerPageChange}
-					/>
+					{pagination?.pages && (
+						<Pagination
+							hidePrevButton
+							hideNextButton
+							shape="rounded"
+							count={paginationCount}
+							page={Number(current_page) + 1}
+							onChange={(_, page) => onCurrentPageChange(page - 1)}
+						/>
+					)}
+
+					{pagination?.limit && (
+						<TablePagination
+							slotProps={{
+								actions: {
+									previousButton: { style: { display: 'none' } },
+									nextButton: { style: { display: 'none' } },
+								},
+							}}
+							labelRowsPerPage="Показывать по:"
+							labelDisplayedRows={({ count }) => {
+								return ` из ${count}`;
+							}}
+							rowsPerPageOptions={limitOptions}
+							component="div"
+							count={dataTotalCount}
+							rowsPerPage={Number(per_page)}
+							page={Number(current_page)}
+							onPageChange={(_, page) => onCurrentPageChange(page)}
+							onRowsPerPageChange={onPerPageChange}
+						/>
+					)}
 				</Grid>
 			) : null}
 		</Grid>

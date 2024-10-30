@@ -1,18 +1,19 @@
 'use client';
-import { Columns, Table } from '@/components/table';
-import { SearchInput } from '@/components';
-import { Button, Chip, Grid2 as Grid } from '@mui/material';
+import useSWR from 'swr';
+import moment from 'moment';
 import Link from 'next/link';
+import { SearchInput } from '@/components';
+import { Columns, Table } from '@/components/table';
+import { Button, Chip, Grid2 as Grid } from '@mui/material';
 import {
 	GET_RESPONDENT_API_ROUTE,
 	getRespondentsFetcher,
 	Respondent,
 } from '@/lib';
 import { ArrowRight } from '@/assets/icons';
-import useSWR from 'swr';
 import { getSurveyStatusProps, readFromLocalStorage } from '@/tools';
 import { useSearchParams } from 'next/navigation';
-import moment from 'moment';
+import { EmptyRespondentsTable } from './empty';
 
 const RespondentsTable = () => {
 	const token = readFromLocalStorage('token');
@@ -116,35 +117,41 @@ const RespondentsTable = () => {
 
 	return (
 		<Grid container flexDirection="column">
-			<Grid
-				maxHeight="40px"
-				container
-				marginBottom="16px"
-				justifyContent="space-between"
-				alignItems="center"
-			>
-				<SearchInput
-					size="small"
-					placeholder="Поиск респондента"
-					fullWidth
-					sx={{ maxWidth: 'var(--form-max-width)' }}
-				/>
-				<Grid container>
-					<Button variant="contained" size="medium">
-						<Link href={'/profile/respondents/create'}>
-							Создать респондента
-						</Link>
-					</Button>
-				</Grid>
-			</Grid>
+			{respondentsData?.data?.respondents?.length ? (
+				<>
+					<Grid
+						maxHeight="40px"
+						container
+						marginBottom="16px"
+						justifyContent="space-between"
+						alignItems="center"
+					>
+						<SearchInput
+							size="small"
+							placeholder="Поиск респондента"
+							fullWidth
+							sx={{ maxWidth: 'var(--form-max-width)' }}
+						/>
+						<Grid container>
+							<Button variant="contained" size="medium">
+								<Link href={'/profile/respondents/create'}>
+									Создать респондента
+								</Link>
+							</Button>
+						</Grid>
+					</Grid>
 
-			<Table<Respondent>
-				loading={isLoading}
-				dataTotalCount={respondentsData?.meta?.total_count}
-				data={respondentsData?.data?.respondents || []}
-				columns={columns}
-				sx={{ maxHeight: 600, minHeight: 600 }}
-			/>
+					<Table<Respondent>
+						loading={isLoading}
+						dataTotalCount={respondentsData?.meta?.total_count}
+						data={respondentsData?.data?.respondents || []}
+						columns={columns}
+						sx={{ maxHeight: 600, minHeight: 600 }}
+					/>
+				</>
+			) : (
+				<EmptyRespondentsTable />
+			)}
 		</Grid>
 	);
 };

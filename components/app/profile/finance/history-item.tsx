@@ -1,4 +1,4 @@
-import classes from '@/assets/styles/app/finance.module.scss';
+import classes from '@/assets/styles/components/app/profile/finance/finance.module.scss';
 
 import { Accordion } from '@/components';
 

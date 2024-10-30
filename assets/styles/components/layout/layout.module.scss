@@ -20,10 +20,19 @@
 }
 
 .profile_layout {
-	background-color: var(--layout-background-color);
 	max-width: var(--layout-profile-max-width);
-	box-shadow: var(--layout-box-shadow);
-	border: var(--layout-border);
+	& h1 {
+		margin-bottom: 8px;
+	}
+	&_content {
+		padding: 24px;
+		position: relative;
+		background-color: var(--layout-background-color);
+		border: var(--layout-border);
+		border-radius: var(--layout-border-radius);
+		box-shadow: var(--layout-box-shadow);
+		min-height: var(--layout-min-height);
+	}
 }
 
 .profile_header {
@@ -31,6 +40,7 @@
 }
 
 .auth_layout {
+	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-auth-max-width);
 	box-shadow: var(--layout-box-shadow);
@@ -42,6 +52,7 @@
 }
 
 .default_layout {
+	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-default-max-width);
 	box-shadow: var(--layout-box-shadow);
@@ -53,6 +64,7 @@
 }
 
 .testing_layout {
+	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-testing-max-width);
 	box-shadow: var(--layout-box-shadow);
@@ -64,6 +76,7 @@
 }
 
 .error_layout {
+	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-error-max-width);
 	box-shadow: var(--layout-box-shadow);

@@ -7,7 +7,7 @@ import { useSWRConfig } from 'swr';
 import { Grid } from '@mui/system';
 import { Button, Chip as MuiChip, chipClasses } from '@mui/material';
 
-import classes from '@/assets/styles/app/respondents.module.scss';
+import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
 interface HeaderProps {
 	respondent?: Omit<Respondent, 'survey_status' | 'survey_changed_at'> & {
