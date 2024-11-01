@@ -8,6 +8,7 @@ export interface Columns<T> {
 	sx?: SxProps;
 	render?: (row: T) => ReactNode;
 	format?: (value?: string | number) => string | number;
+	sort?: string;
 }
 
 export interface TableProps<T> {
@@ -19,6 +20,7 @@ export interface TableProps<T> {
 		limit: boolean;
 		pages: boolean;
 	};
+	onRowClick?: (row: T) => void;
 	data: T[];
 	columns: Columns<T>[];
 	hideHead?: boolean;

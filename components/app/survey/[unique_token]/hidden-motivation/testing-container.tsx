@@ -9,7 +9,7 @@ import Introduce from './introduce';
 import Testing from './testing';
 import Setup from './setup';
 
-import classes from '@/assets/styles/components/app/testing/hidden-motivation.module.scss';
+import classes from '@/assets/styles/components/app/survey/hidden-motivation.module.scss';
 import { TestingLayout } from '@/components';
 
 const TestingButton = (props: ButtonProps) => (

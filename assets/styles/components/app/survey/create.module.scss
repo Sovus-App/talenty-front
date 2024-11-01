@@ -1,0 +1,23 @@
+.create_survey {
+  &_header {
+    box-shadow: var(--layout-box-shadow);
+    border: var(--layout-border);
+    padding: 24px;
+    border-radius: 8px;
+    background: var(--layout-background-color);
+  }
+  &_header {
+    & h1 {
+      margin-bottom: 32px;
+    }
+    &_respondent {
+      display: flex;
+      gap: 16px;
+      flex-direction: row;
+      align-items: center;
+      & a {
+        color: var(--primary-color)
+      }
+    }
+  }
+}

@@ -44,7 +44,7 @@ const CreateRespondentForm = () => {
 		};
 		const respondent = await createRespondent(data);
 		if (respondent?.uuid) {
-			router.push('/profile/respondents');
+			router.push(`/survey/create?respondent_uuid=${respondent?.uuid}`);
 		} else if (respondent?.message) {
 			enqueueSnackbar(respondent.message, { variant: 'error' });
 		}
@@ -179,7 +179,7 @@ const CreateRespondentForm = () => {
 			</Grid>
 			<Grid container gap="16px">
 				<Button size="small" type="submit" variant="contained">
-					Создать респондента
+					Создать тестирование
 				</Button>
 				<Button size="small" variant="outlined">
 					Отменить

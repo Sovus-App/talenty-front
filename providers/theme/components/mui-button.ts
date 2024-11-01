@@ -8,6 +8,14 @@ declare module '@mui/material/Button' {
 }
 
 const muiButton: MUIComponentsType = {
+	MuiIconButton: {
+		styleOverrides: {
+			root: {
+				padding: '4px',
+				borderRadius: '4px',
+			},
+		},
+	},
 	MuiButton: {
 		styleOverrides: {
 			root: {

@@ -9,11 +9,11 @@ import {
 	TestingHeaderWithTimer,
 	TestingHeader,
 	TestingMain,
-} from '../../../layout/testing-layout';
+} from '../../../../layout/testing-layout';
 import Introduce from './introduce';
 import Testing from './testing';
 
-import classes from '@/assets/styles/components/app/testing/personality-assessment.module.scss';
+import classes from '@/assets/styles/components/app/survey/personality-assessment.module.scss';
 
 interface PersonalityAssessmentContainerProps {
 	testingData: PersonalityAssessmentTesting & { survey: Survey };

@@ -10,14 +10,14 @@ import {
 	getRespondentsFetcher,
 	Respondent,
 } from '@/lib';
-import { ArrowRight } from '@/assets/icons';
 import { getSurveyStatusProps, readFromLocalStorage } from '@/tools';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { EmptyRespondentsTable } from './empty';
 
 const RespondentsTable = () => {
 	const token = readFromLocalStorage('token');
 
+	const router = useRouter();
 	const search = useSearchParams();
 	const page = search.get('page') ? `page=${search.get('page')}` : '';
 	const per_page = search.get('per_page')
@@ -37,7 +37,7 @@ const RespondentsTable = () => {
 	);
 
 	const columns: Columns<Respondent>[] = [
-		{ field: 'full_name', label: 'ФИО респондента', sx: { width: '40%' } },
+		{ field: 'full_name', label: 'ФИО респондента', sx: { width: '30%' } },
 		{
 			field: 'gender',
 			label: 'Пол',
@@ -67,6 +67,7 @@ const RespondentsTable = () => {
 		{
 			field: 'survey_status',
 			label: 'Статус',
+			sort: 'survey_status',
 			render: (row) => {
 				const props = getSurveyStatusProps(row.survey_status);
 				return (
@@ -94,23 +95,12 @@ const RespondentsTable = () => {
 		{
 			field: 'survey_completed_at',
 			label: 'Тест пройден',
+			sort: 'survey_completed_at',
 			render: (row) => {
 				if (row.survey_completed_at) {
 					return moment(row.survey_completed_at).format('DD.MM.YYYY');
 				}
 				return '–';
-			},
-		},
-		{
-			field: ' ',
-			label: ' ',
-			align: 'right',
-			render: (row) => {
-				return (
-					<Link href={`/profile/respondents/${row.uuid}`}>
-						<ArrowRight />
-					</Link>
-				);
 			},
 		},
 	];
@@ -142,6 +132,9 @@ const RespondentsTable = () => {
 					</Grid>
 
 					<Table<Respondent>
+						onRowClick={(row) =>
+							router.push(`/profile/respondents/${row.uuid}`)
+						}
 						loading={isLoading}
 						dataTotalCount={respondentsData?.meta?.total_count}
 						data={respondentsData?.data?.respondents || []}
@@ -150,7 +143,7 @@ const RespondentsTable = () => {
 					/>
 				</>
 			) : (
-				<EmptyRespondentsTable />
+				!isLoading && <EmptyRespondentsTable />
 			)}
 		</Grid>
 	);

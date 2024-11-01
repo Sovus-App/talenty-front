@@ -5,4 +5,4 @@ export {
 	CreateRespondentForm,
 	FinanceContainer,
 } from './profile';
-export { SurveysContainer } from './survey';
+export { SurveysContainer, CreateSurveyContainer } from './survey';

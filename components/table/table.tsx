@@ -12,11 +12,15 @@ import {
 	TablePagination,
 	Skeleton,
 	Pagination,
+	IconButton,
 } from '@mui/material';
 import { TableProps } from './types';
+import { SortTable } from '@/assets/icons';
 
 const TABLE_PAGE_QUERY_KEY = 'page';
 const TABLE_PER_PAGE_QUERY_KEY = 'per_page';
+const TABLE_SORT_QUERY_KEY = 'sort';
+const TABLE_SORT_DIRECTION_QUERY_KEY = 'sort_direction';
 
 const Table = <T,>({
 	data = [],
@@ -29,11 +33,13 @@ const Table = <T,>({
 		limit: true,
 	},
 	hideHead = false,
+	onRowClick,
 	sx,
 }: TableProps<T>) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
+	const sortDirection = searchParams.get(TABLE_SORT_DIRECTION_QUERY_KEY) || '';
 	const current_page = searchParams.get(TABLE_PAGE_QUERY_KEY) || 0;
 	const per_page = searchParams.get(TABLE_PER_PAGE_QUERY_KEY) || 10;
 	const onPerPageChange = useCallback(
@@ -51,6 +57,19 @@ const Table = <T,>({
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
+	);
+
+	const onChangeSort = useCallback(
+		(sort: string) => {
+			const queryParams = new URLSearchParams(searchParams.toString());
+			queryParams.set(TABLE_SORT_QUERY_KEY, String(sort));
+			queryParams.set(
+				TABLE_SORT_DIRECTION_QUERY_KEY,
+				sortDirection === 'asc' ? 'desc' : 'asc',
+			);
+			router.push(`${pathname}?${queryParams}`);
+		},
+		[pathname, router, searchParams, sortDirection],
 	);
 
 	const paginationCount = useMemo(() => {
@@ -74,9 +93,13 @@ const Table = <T,>({
 			return data.map((row: T) => (
 				<TableRow
 					hover
-					role="checkbox"
-					tabIndex={-1}
+					sx={onRowClick ? { cursor: 'pointer' } : undefined}
 					key={(row as { id: number }).id}
+					onClick={() => {
+						if (onRowClick) {
+							onRowClick(row);
+						}
+					}}
 				>
 					{columns.map((column) => {
 						const value = column.field
@@ -112,15 +135,36 @@ const Table = <T,>({
 					{!hideHead ? (
 						<TableHead>
 							<TableRow>
-								{columns.map((column) => (
-									<TableCell
-										key={column.field}
-										align={column.align || 'left'}
-										sx={{ ...column.sx }}
-									>
-										{column.label}
-									</TableCell>
-								))}
+								{columns.map((column) => {
+									const Label = () => {
+										if (column.sort) {
+											return (
+												<Grid gap="8px" container alignItems="center">
+													<Grid>{column.label}</Grid>
+													<Grid>
+														<IconButton
+															onClick={() => {
+																onChangeSort(column.sort || '');
+															}}
+														>
+															<SortTable />
+														</IconButton>
+													</Grid>
+												</Grid>
+											);
+										}
+										return <>{column.label}</>;
+									};
+									return (
+										<TableCell
+											key={column.field}
+											align={column.align || 'left'}
+											sx={{ ...column.sx }}
+										>
+											<Label />
+										</TableCell>
+									);
+								})}
 							</TableRow>
 						</TableHead>
 					) : null}

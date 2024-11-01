@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import classes from '@/assets/styles/components/app/testing/hidden-motivation.module.scss';
+import classes from '@/assets/styles/components/app/survey/hidden-motivation.module.scss';
 import { Grid2 as Grid } from '@mui/material';
 import {
 	HiddenMotivationColors,

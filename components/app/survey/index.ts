@@ -1,1 +1,2 @@
-export { default as SurveysContainer } from './container';
+export { SurveysContainer } from './[unique_token]';
+export { CreateSurveyContainer } from './create';
