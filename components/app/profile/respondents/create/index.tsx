@@ -181,7 +181,12 @@ const CreateRespondentForm = () => {
 				<Button type="submit" variant="contained">
 					Создать тестирование
 				</Button>
-				<Button variant="outlined">Отменить</Button>
+				<Button
+					onClick={() => router.push('/profile/respondents')}
+					variant="outlined"
+				>
+					Отменить
+				</Button>
 			</Grid>
 		</Grid>
 	);
