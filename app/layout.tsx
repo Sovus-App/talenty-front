@@ -6,7 +6,7 @@ import AppProviders from '@/providers';
 import '@/assets/styles/globals.css';
 
 const inter = Inter({
-	subsets: ['cyrillic'],
+	subsets: ['latin', 'cyrillic'],
 	weight: ['300', '400', '500', '600', '700'],
 	display: 'swap',
 	variable: '--font-inter',

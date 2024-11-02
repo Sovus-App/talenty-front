@@ -178,12 +178,10 @@ const CreateRespondentForm = () => {
 				</Grid>
 			</Grid>
 			<Grid container gap="16px">
-				<Button size="small" type="submit" variant="contained">
+				<Button type="submit" variant="contained">
 					Создать тестирование
 				</Button>
-				<Button size="small" variant="outlined">
-					Отменить
-				</Button>
+				<Button variant="outlined">Отменить</Button>
 			</Grid>
 		</Grid>
 	);

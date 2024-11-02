@@ -11,12 +11,13 @@ const SEARCH_INPUT_QUERY_KEY = 'search';
 const SearchInput = ({
 	size = 'small',
 	onChange,
+	query_key = SEARCH_INPUT_QUERY_KEY,
 	...props
-}: Omit<OutlinedInputProps, 'value'>) => {
+}: Omit<OutlinedInputProps, 'value'> & { query_key?: string }) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const querySearchStr = searchParams.get(SEARCH_INPUT_QUERY_KEY);
+	const querySearchStr = searchParams.get(query_key);
 
 	const [searchStr, setSearchStr] = useState(querySearchStr ?? '');
 	const debouncedSearchStr = useDebounce(searchStr);

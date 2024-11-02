@@ -2,7 +2,7 @@ import { readFromLocalStorage } from '@/tools';
 
 const CREATE_SURVEY_API_ROUTE = '/api/internal/pages/surveys';
 
-export async function createSurvey(formData: { respondent_uuid: string }) {
+async function createSurvey(formData: { respondent_uuid: string }) {
 	const token = readFromLocalStorage('token');
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_API_BASE_URL}/${CREATE_SURVEY_API_ROUTE}`,
@@ -21,3 +21,5 @@ export async function createSurvey(formData: { respondent_uuid: string }) {
 	}
 	return error;
 }
+
+export default createSurvey;

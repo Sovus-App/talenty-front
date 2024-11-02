@@ -16,11 +16,12 @@ import {
 } from '@mui/material';
 import { TableProps } from './types';
 import { SortTable } from '@/assets/icons';
-
-const TABLE_PAGE_QUERY_KEY = 'page';
-const TABLE_PER_PAGE_QUERY_KEY = 'per_page';
-const TABLE_SORT_QUERY_KEY = 'sort';
-const TABLE_SORT_DIRECTION_QUERY_KEY = 'sort_direction';
+import {
+	PAGINATION_PAGE_QUERY_KEY,
+	PAGINATION_PER_PAGE_QUERY_KEY,
+	PAGINATION_SORT_DIRECTION_QUERY_KEY,
+	PAGINATION_SORT_QUERY_KEY,
+} from '@/tools';
 
 const Table = <T,>({
 	data = [],
@@ -39,13 +40,15 @@ const Table = <T,>({
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const sortDirection = searchParams.get(TABLE_SORT_DIRECTION_QUERY_KEY) || '';
-	const current_page = searchParams.get(TABLE_PAGE_QUERY_KEY) || 0;
-	const per_page = searchParams.get(TABLE_PER_PAGE_QUERY_KEY) || 10;
+	const sortProperty = searchParams.get(PAGINATION_SORT_QUERY_KEY) || '';
+	const sortDirection =
+		searchParams.get(PAGINATION_SORT_DIRECTION_QUERY_KEY) || '';
+	const current_page = searchParams.get(PAGINATION_PAGE_QUERY_KEY) || 0;
+	const per_page = searchParams.get(PAGINATION_PER_PAGE_QUERY_KEY) || 10;
 	const onPerPageChange = useCallback(
 		(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set(TABLE_PER_PAGE_QUERY_KEY, event.target.value);
+			queryParams.set(PAGINATION_PER_PAGE_QUERY_KEY, event.target.value);
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
@@ -53,7 +56,7 @@ const Table = <T,>({
 	const onCurrentPageChange = useCallback(
 		(page: number) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set(TABLE_PAGE_QUERY_KEY, String(page));
+			queryParams.set(PAGINATION_PAGE_QUERY_KEY, String(page));
 			router.push(`${pathname}?${queryParams}`);
 		},
 		[pathname, router, searchParams],
@@ -62,14 +65,20 @@ const Table = <T,>({
 	const onChangeSort = useCallback(
 		(sort: string) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			queryParams.set(TABLE_SORT_QUERY_KEY, String(sort));
+			if (!sortProperty.includes(sort)) {
+				const selectedSort = sortProperty.split(',');
+				queryParams.set(
+					PAGINATION_SORT_QUERY_KEY,
+					[...selectedSort, sort].join(','),
+				);
+			}
 			queryParams.set(
-				TABLE_SORT_DIRECTION_QUERY_KEY,
+				PAGINATION_SORT_DIRECTION_QUERY_KEY,
 				sortDirection === 'asc' ? 'desc' : 'asc',
 			);
 			router.push(`${pathname}?${queryParams}`);
 		},
-		[pathname, router, searchParams, sortDirection],
+		[pathname, router, searchParams, sortDirection, sortProperty],
 	);
 
 	const paginationCount = useMemo(() => {

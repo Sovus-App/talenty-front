@@ -1,8 +1,5 @@
-import { GET_RESPONDENT_API_ROUTE, Respondent } from '@/lib';
-import { createSurvey } from '@/lib/profile/respondents/createSurvey';
-import { useSnackbar } from 'notistack';
-import { useParams } from 'next/navigation';
-import { useSWRConfig } from 'swr';
+import { Respondent } from '@/lib';
+import { useRouter } from 'next/navigation';
 
 import { Grid } from '@mui/system';
 import { Button, Chip as MuiChip, chipClasses } from '@mui/material';
@@ -32,9 +29,7 @@ const Chip = ({ label }: { label?: string }) => (
 );
 
 const Header = ({ respondent }: HeaderProps) => {
-	const { enqueueSnackbar } = useSnackbar();
-	const params = useParams();
-	const { mutate } = useSWRConfig();
+	const router = useRouter();
 	const chips = [
 		respondent?.gender,
 		respondent?.age,
@@ -42,23 +37,14 @@ const Header = ({ respondent }: HeaderProps) => {
 		respondent?.phone,
 	];
 
-	const onCreateSurveyClick = async () => {
-		const data = { respondent_uuid: respondent?.uuid || '' };
-		const survey = await createSurvey(data);
-		if (survey?.uuid) {
-			await mutate(
-				`${process.env.NEXT_PUBLIC_API_BASE_URL}/${GET_RESPONDENT_API_ROUTE}/${params.uuid}`,
-			);
-		} else {
-			enqueueSnackbar(survey?.message, { variant: 'error' });
-		}
-	};
 	return (
 		<div className={classes.respondent_card_header}>
 			<Grid alignItems="center" container justifyContent="space-between">
 				<h1>{respondent?.full_name || 'Петров Иван Савельевич'}</h1>
 				<Button
-					onClick={async () => await onCreateSurveyClick()}
+					onClick={() =>
+						router.push(`/survey/create?respondent_uuid=${respondent?.uuid}`)
+					}
 					variant="contained"
 					size="medium"
 				>

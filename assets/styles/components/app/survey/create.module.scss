@@ -1,5 +1,8 @@
 .create_survey {
-  &_header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  &_header, &_info {
     box-shadow: var(--layout-box-shadow);
     border: var(--layout-border);
     padding: 24px;
@@ -18,6 +21,33 @@
       & a {
         color: var(--primary-color)
       }
+    }
+  }
+  &_info {
+    &_title {
+      margin-bottom: 16px;
+      & h2 {
+        margin-bottom: 8px;
+      }
+      & p {
+        max-width: 550px;
+      }
+    }
+    &_description {
+      padding: 12px 8px;
+      background: var(--body-background-color);
+      margin-bottom: 48px;
+      border-radius: 8px;
+      & b {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+      }
+    }
+    &_buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 16px
     }
   }
 }
