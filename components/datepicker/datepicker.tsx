@@ -1,3 +1,5 @@
+import moment, { Moment } from 'moment';
+
 import { FormControl } from '@mui/material';
 import {
 	DatePicker as MUIDatePicker,
@@ -6,7 +8,6 @@ import {
 	pickersDayClasses,
 } from '@mui/x-date-pickers';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import moment, { Moment } from 'moment';
 import { Asterisk } from '@/components/input';
 
 interface CreateRespondentDatepickerProps
@@ -15,12 +16,16 @@ interface CreateRespondentDatepickerProps
 	label: string;
 	size?: 'small' | 'medium';
 	required?: boolean;
+	helperText?: string;
+	error?: boolean;
 }
 
 const DatePicker = ({
 	id,
 	label,
 	size = 'small',
+	helperText,
+	error,
 	...props
 }: CreateRespondentDatepickerProps) => {
 	const maxYear = moment().get('year') - 18;
@@ -48,6 +53,10 @@ const DatePicker = ({
 				}}
 				maxDate={moment(`${maxYear}-12-31`)}
 				slotProps={{
+					textField: {
+						helperText,
+						error,
+					},
 					layout: {
 						sx: {
 							[`.${pickersDayClasses.selected}`]: {

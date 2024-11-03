@@ -1,25 +1,30 @@
 'use client';
 import { FormEvent, useState } from 'react';
+import { signUp, SignUpData } from '@/lib';
+import { useRouter } from 'next/navigation';
+import { parsePhone } from '@/tools';
+import { useSnackbar } from 'notistack';
+
 import {
 	Button,
 	Checkbox,
+	FormControl,
 	FormControlLabel,
 	Grid2 as Grid,
 	InputAdornment,
 	Typography,
 } from '@mui/material';
 import { AuthInput } from '@/components';
-
-import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
-import { signUp, SignUpData } from '@/lib';
-import { useRouter } from 'next/navigation';
-import { parsePhone } from '@/tools';
 import { PhoneInputMask, AuthInputProps } from '@/components/input';
 import { MailIcon } from '@/assets/icons';
 import Link from 'next/link';
-import { useSnackbar } from 'notistack';
+
+import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
 
 const SignUpForm = () => {
+	const [formErrors, setFormErrors] = useState<
+		{ field: string; message: string }[]
+	>([]);
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
 	const [formData, setFormData] = useState<SignUpData>({
@@ -40,8 +45,16 @@ const SignUpForm = () => {
 			router.push('/profile/respondents');
 		} else if (credentials?.message) {
 			enqueueSnackbar(credentials?.message, { variant: 'error' });
+			if (credentials?.errors) {
+				setFormErrors(credentials?.errors);
+			}
 		}
 	}
+
+	const getErrorInput = (field: string) => {
+		const error = formErrors.find((error) => error.field === field);
+		return { error: !!error, helperText: error?.message };
+	};
 
 	return (
 		<Grid
@@ -66,6 +79,7 @@ const SignUpForm = () => {
 					required
 					label="Введите ФИО"
 					type="text"
+					{...getErrorInput('name')}
 				/>
 
 				<PhoneInputMask<AuthInputProps>
@@ -75,7 +89,13 @@ const SignUpForm = () => {
 					}}
 					id="phone"
 				>
-					{(inputProps) => <AuthInput {...inputProps} label="Введите номер" />}
+					{(inputProps) => (
+						<AuthInput
+							{...inputProps}
+							label="Введите номер"
+							{...getErrorInput('phone')}
+						/>
+					)}
 				</PhoneInputMask>
 
 				<AuthInput
@@ -97,6 +117,7 @@ const SignUpForm = () => {
 							),
 						},
 					}}
+					{...getErrorInput('email')}
 				/>
 				<AuthInput
 					onChange={(event) =>
@@ -108,35 +129,38 @@ const SignUpForm = () => {
 					label="Введите пароль"
 					placeholder="*********"
 					type="password"
+					{...getErrorInput('password')}
 				/>
-				<FormControlLabel
-					checked={formData.approve_policy}
-					htmlFor="approve_policy"
-					control={
-						<Checkbox
-							onChange={(event) =>
-								setFormData({
-									...formData,
-									approve_policy: event.target.checked,
-								})
-							}
-							required
-							id="approve_policy"
-							sx={{ paddingTop: 0 }}
-							name="approve_policy"
-						/>
-					}
-					label={
-						<Typography
-							variant="body1"
-							component="span"
-							sx={{ '& a': { color: 'var(--primary-color)' } }}
-						>
-							Я согласен(а) с <Link href={''}>условиями</Link> обработки
-							персональных данных
-						</Typography>
-					}
-				/>
+				<FormControl>
+					<FormControlLabel
+						checked={formData.approve_policy}
+						htmlFor="approve_policy"
+						control={
+							<Checkbox
+								onChange={(event) =>
+									setFormData({
+										...formData,
+										approve_policy: event.target.checked,
+									})
+								}
+								required
+								id="approve_policy"
+								sx={{ paddingTop: 0 }}
+								name="approve_policy"
+							/>
+						}
+						label={
+							<Typography
+								variant="body1"
+								component="span"
+								sx={{ '& a': { color: 'var(--primary-color)' } }}
+							>
+								Я согласен(а) с <Link href={''}>условиями</Link> обработки
+								персональных данных
+							</Typography>
+						}
+					/>
+				</FormControl>
 			</Grid>
 
 			<Grid>

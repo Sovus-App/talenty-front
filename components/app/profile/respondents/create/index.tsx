@@ -1,4 +1,11 @@
 'use client';
+import { FormEvent, useState } from 'react';
+import { createRespondent } from '@/lib';
+import { useRouter } from 'next/navigation';
+import { parsePhone } from '@/tools';
+import { useSnackbar } from 'notistack';
+import moment from 'moment';
+
 import {
 	Button,
 	FormControl,
@@ -8,22 +15,22 @@ import {
 	Radio,
 	RadioGroup,
 } from '@mui/material';
-import { FormEvent, useState } from 'react';
 import {
 	CreateRespondentInput,
 	PhoneInputMask,
 	CreateRespondentInputProps,
 } from '@/components/input';
-import { createRespondent } from '@/lib';
-import { useRouter } from 'next/navigation';
 import { DatePicker } from '@/components';
-import moment from 'moment';
-import { parsePhone } from '@/tools';
-import { useSnackbar } from 'notistack';
 
 const CreateRespondentForm = () => {
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
+	const [formErrors, setFormErrors] = useState<
+		{
+			field: string;
+			message: string;
+		}[]
+	>([]);
 	const [formData, setFormData] = useState({
 		last_name: '',
 		name: '',
@@ -44,11 +51,21 @@ const CreateRespondentForm = () => {
 		};
 		const respondent = await createRespondent(data);
 		if (respondent?.uuid) {
+			setFormErrors([]);
 			router.push(`/survey/create?respondent_uuid=${respondent?.uuid}`);
 		} else if (respondent?.message) {
 			enqueueSnackbar(respondent.message, { variant: 'error' });
+			if (respondent?.errors) {
+				setFormErrors(respondent?.errors);
+			}
 		}
 	}
+
+	const getErrorInput = (field: string) => {
+		const error = formErrors.find((error) => error.field === field);
+		return { error: !!error, helperText: error?.message };
+	};
+
 	return (
 		<Grid
 			container
@@ -70,6 +87,7 @@ const CreateRespondentForm = () => {
 							setFormData({ ...formData, name: event.target.value })
 						}
 						value={formData.name}
+						{...getErrorInput('name')}
 					/>
 					<CreateRespondentInput
 						name="surname"
@@ -80,8 +98,9 @@ const CreateRespondentForm = () => {
 							setFormData({ ...formData, surname: event.target.value })
 						}
 						value={formData.surname}
+						{...getErrorInput('surname')}
 					/>
-					<FormControl required>
+					<FormControl required {...getErrorInput('gender')}>
 						<FormLabel id="gender-radio-buttons-group-label">Пол</FormLabel>
 						<RadioGroup
 							aria-labelledby="gender-radio-buttons-group-label"
@@ -131,6 +150,7 @@ const CreateRespondentForm = () => {
 							setFormData({ ...formData, email: event.target.value })
 						}
 						value={formData.email}
+						{...getErrorInput('email')}
 					/>
 				</Grid>
 				<Grid size={5} container rowGap="24px" flexDirection="column">
@@ -144,6 +164,7 @@ const CreateRespondentForm = () => {
 							setFormData({ ...formData, last_name: event.target.value })
 						}
 						value={formData.last_name}
+						{...getErrorInput('last_name')}
 					/>
 					<DatePicker
 						required
@@ -160,6 +181,7 @@ const CreateRespondentForm = () => {
 								? moment(formData.date_of_birth)
 								: undefined
 						}
+						{...getErrorInput('date_of_birth')}
 					/>
 					<PhoneInputMask<CreateRespondentInputProps>
 						value={formData.phone}
@@ -172,6 +194,7 @@ const CreateRespondentForm = () => {
 								{...inputProps}
 								id="phone-field"
 								label="Введите номер телефона"
+								{...getErrorInput('phone')}
 							/>
 						)}
 					</PhoneInputMask>

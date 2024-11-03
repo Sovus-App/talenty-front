@@ -1,8 +1,10 @@
+import moment from 'moment';
+import { GENDERS } from '@/tools';
 import { Respondent } from '@/lib';
 import { useRouter } from 'next/navigation';
 
 import { Grid } from '@mui/system';
-import { Button, Chip as MuiChip, chipClasses } from '@mui/material';
+import { Button, Chip as MuiChip, chipClasses, Skeleton } from '@mui/material';
 
 import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
@@ -11,6 +13,7 @@ interface HeaderProps {
 		email: string;
 		phone: string;
 	};
+	loading: boolean;
 }
 
 const Chip = ({ label }: { label?: string }) => (
@@ -28,39 +31,47 @@ const Chip = ({ label }: { label?: string }) => (
 	/>
 );
 
-const Header = ({ respondent }: HeaderProps) => {
+const Header = ({ respondent, loading }: HeaderProps) => {
 	const router = useRouter();
 	const chips = [
-		respondent?.gender,
-		respondent?.age,
+		respondent?.gender ? GENDERS[respondent?.gender] : '',
+		`${moment(new Date()).diff(new Date(respondent?.date_of_birth || ''), 'years')} лет`,
 		respondent?.email,
 		respondent?.phone,
 	];
 
 	return (
 		<div className={classes.respondent_card_header}>
-			<Grid alignItems="center" container justifyContent="space-between">
-				<h1>{respondent?.full_name || 'Петров Иван Савельевич'}</h1>
-				<Button
-					onClick={() =>
-						router.push(`/survey/create?respondent_uuid=${respondent?.uuid}`)
-					}
-					variant="contained"
-					size="medium"
-				>
-					Назначить тестироование
-				</Button>
-			</Grid>
-			<Grid
-				className={classes.respondent_card_header_info}
-				gap="16px"
-				component="ul"
-				container
-			>
-				{chips.map((chip) => (
-					<Chip key={chip} label={chip} />
-				))}
-			</Grid>
+			{loading ? (
+				<Skeleton height="100px" variant="rectangular" />
+			) : (
+				<>
+					<Grid alignItems="center" container justifyContent="space-between">
+						<h1>{respondent?.full_name}</h1>
+						<Button
+							onClick={() =>
+								router.push(
+									`/survey/create?respondent_uuid=${respondent?.uuid}`,
+								)
+							}
+							variant="contained"
+							size="medium"
+						>
+							Назначить тестироование
+						</Button>
+					</Grid>
+					<Grid
+						className={classes.respondent_card_header_info}
+						gap="16px"
+						component="ul"
+						container
+					>
+						{chips.map((chip) => (
+							<Chip key={chip} label={chip} />
+						))}
+					</Grid>
+				</>
+			)}
 		</div>
 	);
 };

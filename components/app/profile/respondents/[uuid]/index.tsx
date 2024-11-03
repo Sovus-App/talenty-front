@@ -7,26 +7,45 @@ import {
 } from '@/lib';
 import { useParams } from 'next/navigation';
 import { readFromLocalStorage } from '@/tools';
+
 import { AsideLayout } from '@/components';
 import Header from './header';
 import TestingHistoryTable from './testing-history-table';
 import Aside from './aside';
 import Reports from './reports';
+import { Skeleton } from '@mui/material';
+
+import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
 const RespondentCard = () => {
 	const token = readFromLocalStorage('token');
 	const params = useParams();
-	const { data: respondentData } = useSWR<{ data: RespondentDetail }>(
+	const { data: respondentData, isLoading } = useSWR<{
+		data: RespondentDetail;
+	}>(
 		`${process.env.NEXT_PUBLIC_API_BASE_URL}/${GET_RESPONDENT_API_ROUTE}/${params.uuid}`,
 		(key: string) => getRespondentsFetcher(key, token),
 	);
 	return (
 		<AsideLayout
-			header={<Header respondent={respondentData?.data?.respondent} />}
-			aside={<Aside />}
+			header={
+				<Header
+					loading={isLoading}
+					respondent={respondentData?.data.respondent}
+				/>
+			}
+			aside={<Aside loading={isLoading} />}
 		>
-			<TestingHistoryTable tableData={respondentData?.data?.surveys} />
-			<Reports />
+			{isLoading ? (
+				<div className={classes.respondent_card_loading}>
+					<Skeleton height="var(--layout-min-height)" variant="rectangular" />
+				</div>
+			) : (
+				<>
+					<TestingHistoryTable tableData={respondentData?.data?.surveys} />
+					<Reports />
+				</>
+			)}
 		</AsideLayout>
 	);
 };

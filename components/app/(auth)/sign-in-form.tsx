@@ -1,16 +1,23 @@
 'use client';
 import { FormEvent, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { useRouter } from 'next/navigation';
+import { signIn, SignInData } from '@/lib';
+
 import { Button, Grid2 as Grid, InputAdornment } from '@mui/material';
 import { AuthInput } from '@/components';
+import { MailIcon } from '@/assets/icons';
+import Link from 'next/link';
 
 import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
-import { signIn, SignInData } from '@/lib';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { MailIcon } from '@/assets/icons';
-import { useSnackbar } from 'notistack';
 
 const SignInForm = () => {
+	const [formErrors, setFormErrors] = useState<
+		{
+			field: string;
+			message: string;
+		}[]
+	>([]);
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
 	const [formData, setFormData] = useState<SignInData>({
@@ -22,11 +29,20 @@ const SignInForm = () => {
 		event.preventDefault();
 		const credentials = await signIn(formData);
 		if (credentials?.access_token) {
+			setFormErrors([]);
 			router.push('/profile/respondents');
 		} else if (credentials?.message) {
 			enqueueSnackbar(credentials?.message, { variant: 'error' });
+			if (credentials?.errors) {
+				setFormErrors(credentials?.errors);
+			}
 		}
 	}
+
+	const getErrorInput = (field: string) => {
+		const error = formErrors.find((error) => error.field === field);
+		return { error: !!error, helperText: error?.message };
+	};
 	return (
 		<Grid
 			container
@@ -58,6 +74,7 @@ const SignInForm = () => {
 					id="email"
 					label="Введите почту"
 					type="email"
+					{...getErrorInput('email')}
 				/>
 				<AuthInput
 					onChange={(event) =>
@@ -69,6 +86,7 @@ const SignInForm = () => {
 					label="Введите пароль"
 					type="password"
 					placeholder="**********"
+					{...getErrorInput('password')}
 				/>
 			</Grid>
 

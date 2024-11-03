@@ -1,22 +1,26 @@
-import { Button, Grid2 as Grid, TextField } from '@mui/material';
+import { Button, Grid2 as Grid, Skeleton, TextField } from '@mui/material';
 
 import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
 
-const Aside = () => {
+const Aside = ({ loading }: { loading: boolean }) => {
 	return (
 		<div className={classes.respondent_card_aside}>
-			<Grid container flexDirection="column" gap="16px">
-				<TextField
-					fullWidth
-					placeholder="Напишите комментарий"
-					multiline
-					minRows={4}
-					maxRows={4}
-				/>
-				<Grid flexGrow=".5">
-					<Button variant="outlined">Добавить заметку</Button>
+			{loading ? (
+				<Skeleton variant="rectangular" height={200} />
+			) : (
+				<Grid container flexDirection="column" gap="16px">
+					<TextField
+						fullWidth
+						placeholder="Напишите комментарий"
+						multiline
+						minRows={4}
+						maxRows={4}
+					/>
+					<Grid flexGrow=".5">
+						<Button variant="outlined">Добавить заметку</Button>
+					</Grid>
 				</Grid>
-			</Grid>
+			)}
 		</div>
 	);
 };

@@ -1,6 +1,13 @@
 'use client';
 import { ChangeEvent, useCallback, useMemo } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { TableProps } from './types';
+import {
+	PAGINATION_PAGE_QUERY_KEY,
+	PAGINATION_PER_PAGE_QUERY_KEY,
+	PAGINATION_SORT_QUERY_KEY,
+} from '@/tools';
+
 import {
 	Grid2 as Grid,
 	TableContainer,
@@ -14,14 +21,7 @@ import {
 	Pagination,
 	IconButton,
 } from '@mui/material';
-import { TableProps } from './types';
 import { SortTable } from '@/assets/icons';
-import {
-	PAGINATION_PAGE_QUERY_KEY,
-	PAGINATION_PER_PAGE_QUERY_KEY,
-	PAGINATION_SORT_DIRECTION_QUERY_KEY,
-	PAGINATION_SORT_QUERY_KEY,
-} from '@/tools';
 
 const Table = <T,>({
 	data = [],
@@ -41,8 +41,6 @@ const Table = <T,>({
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const sortProperty = searchParams.get(PAGINATION_SORT_QUERY_KEY) || '';
-	const sortDirection =
-		searchParams.get(PAGINATION_SORT_DIRECTION_QUERY_KEY) || '';
 	const current_page = searchParams.get(PAGINATION_PAGE_QUERY_KEY) || 0;
 	const per_page = searchParams.get(PAGINATION_PER_PAGE_QUERY_KEY) || 10;
 	const onPerPageChange = useCallback(
@@ -65,20 +63,28 @@ const Table = <T,>({
 	const onChangeSort = useCallback(
 		(sort: string) => {
 			const queryParams = new URLSearchParams(searchParams.toString());
-			if (!sortProperty.includes(sort)) {
-				const selectedSort = sortProperty.split(',');
-				queryParams.set(
-					PAGINATION_SORT_QUERY_KEY,
-					[...selectedSort, sort].join(','),
-				);
-			}
-			queryParams.set(
-				PAGINATION_SORT_DIRECTION_QUERY_KEY,
-				sortDirection === 'asc' ? 'desc' : 'asc',
+			const asc = sort + '_asc';
+			const desc = sort + '_desc';
+
+			const sortList = sortProperty.split(',').filter(Boolean);
+			const sortIndex = sortList.findIndex((sort_property) =>
+				sort_property.includes(sort),
 			);
+			let updatedSort = sortList.length ? [...sortList, asc] : [asc];
+
+			if (sortIndex >= 0) {
+				updatedSort = sortList.map((sort_property, index) => {
+					if (index === sortIndex) {
+						return sort_property === asc ? desc : asc;
+					}
+					return sort_property;
+				});
+			}
+
+			queryParams.set(PAGINATION_SORT_QUERY_KEY, updatedSort.join(','));
 			router.push(`${pathname}?${queryParams}`);
 		},
-		[pathname, router, searchParams, sortDirection, sortProperty],
+		[pathname, router, searchParams, sortProperty],
 	);
 
 	const paginationCount = useMemo(() => {

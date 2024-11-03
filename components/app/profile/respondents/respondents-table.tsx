@@ -2,16 +2,17 @@
 import useSWR from 'swr';
 import moment from 'moment';
 import Link from 'next/link';
-import { SearchInput } from '@/components';
-import { Columns, Table } from '@/components/table';
-import { Button, Chip, Grid2 as Grid } from '@mui/material';
+import { GENDERS, getSurveyStatusProps, readFromLocalStorage } from '@/tools';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
 	GET_RESPONDENT_API_ROUTE,
 	getRespondentsFetcher,
 	Respondent,
 } from '@/lib';
-import { getSurveyStatusProps, readFromLocalStorage } from '@/tools';
-import { useRouter, useSearchParams } from 'next/navigation';
+
+import { SearchInput } from '@/components';
+import { Columns, Table } from '@/components/table';
+import { Button, Chip, Grid2 as Grid } from '@mui/material';
 import { EmptyRespondentsTable } from './empty';
 
 const RespondentsTable = () => {
@@ -42,10 +43,13 @@ const RespondentsTable = () => {
 			field: 'gender',
 			label: 'Пол',
 			render: (row) => {
+				if (!GENDERS[row.gender]) {
+					return '–';
+				}
 				return (
 					<Chip
 						component="div"
-						label={row.gender === 'male' ? 'мужской' : 'женский'}
+						label={GENDERS[row.gender]}
 						sx={{
 							background: '#F0F5F8',
 						}}
@@ -53,13 +57,22 @@ const RespondentsTable = () => {
 				);
 			},
 		},
-		{ field: 'age', label: 'Возраст' },
 		{
-			field: 'survey_changed_at',
+			field: 'date_of_birth',
+			label: 'Возраст',
+			format: (value) => {
+				if (value) {
+					return `${moment(new Date()).diff(new Date(value), 'years')} лет`;
+				}
+				return '-';
+			},
+		},
+		{
+			field: 'survey_created_at',
 			label: 'Тест создан',
 			render: (row) => {
-				if (row.survey_changed_at) {
-					return moment(row.survey_changed_at).format('DD.MM.YYYY');
+				if (row.survey_created_at) {
+					return moment(row.survey_created_at).format('DD.MM.YYYY');
 				}
 				return '–';
 			},

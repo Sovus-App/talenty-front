@@ -1,4 +1,8 @@
 'use client';
+import { useCallback, useMemo } from 'react';
+import { PAGINATION_PAGE_QUERY_KEY } from '@/tools';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 import {
 	Box,
 	FormControl,
@@ -13,9 +17,6 @@ import {
 	Typography,
 } from '@mui/material';
 import { SearchInput } from '@/components';
-import { useCallback, useMemo } from 'react';
-import { PAGINATION_PAGE_QUERY_KEY } from '@/tools';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type SelectProps<VALUE = string> = Omit<MUISelectProps<VALUE>, 'onChange'> & {
 	onChange: (value: string | number) => void;
@@ -132,7 +133,6 @@ const Select = ({
 				{Boolean(pagination) && (
 					<Grid
 						container
-						justifyContent="end"
 						sx={{ borderTop: '1px solid #C9D8E8', padding: '8px 12px 0' }}
 					>
 						<Pagination

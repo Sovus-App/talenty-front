@@ -1,3 +1,5 @@
+import { GENDERS } from '@/tools';
+
 export interface CreateRespondentData {
 	full_name: string;
 	date_of_birth: string;
@@ -18,9 +20,9 @@ export interface CreateRespondentResponse {
 export interface Respondent {
 	uuid: string;
 	full_name: string;
-	gender: string;
-	age: string;
-	survey_changed_at: string;
+	gender: keyof typeof GENDERS;
+	date_of_birth: string;
+	survey_created_at: string;
 	survey_status: 'completed' | 'not_completed' | string;
 	survey_completed_at: string;
 }

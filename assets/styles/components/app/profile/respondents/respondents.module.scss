@@ -24,12 +24,15 @@
 }
 
 .respondent_card {
-  &_testing_history,&_header,&_reports {
+  &_testing_history,&_header,&_reports,&_loading {
     background: var(--layout-background-color);
     box-shadow: var(--layout-box-shadow);
     border: var(--layout-border);
     padding: 24px;
     border-radius: 8px;
+  }
+  &_loading_header {
+    margin-bottom: 24px;
   }
   &_testing_history {
     & h2 {
@@ -37,7 +40,7 @@
     }
   }
 	&_header {
-    margin-bottom: 40px;
+    margin-bottom: 24px;
     & h1 {
       margin-bottom: 8px;
     }
