@@ -22,9 +22,14 @@ export interface Respondent {
 	full_name: string;
 	gender: keyof typeof GENDERS;
 	date_of_birth: string;
-	survey_created_at: string;
-	survey_status: 'completed' | 'not_completed' | string;
-	survey_completed_at: string;
+	current_survey: {
+		survey_changed_at: string;
+		survey_completed_at: string;
+		survey_created_at: string;
+		survey_id: string | null;
+		survey_status: 'completed' | 'not_completed' | string;
+		survey_uuid: string | null;
+	};
 }
 
 export interface Surveys {

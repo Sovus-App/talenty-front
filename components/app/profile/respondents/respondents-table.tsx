@@ -71,8 +71,10 @@ const RespondentsTable = () => {
 					size="small"
 					variant="secondary"
 					label={{
-						text: row.survey_created_at
-							? moment(row.survey_created_at).format('DD.MM.YYYY')
+						text: row.current_survey.survey_created_at
+							? moment(row.current_survey.survey_created_at).format(
+									'DD.MM.YYYY',
+								)
 							: '–',
 					}}
 				/>
@@ -83,7 +85,7 @@ const RespondentsTable = () => {
 			label: 'Статус',
 			sort: 'survey_status',
 			render: (row) => {
-				const props = getSurveyStatusProps(row.survey_status);
+				const props = getSurveyStatusProps(row.current_survey.survey_status);
 				return <Chip {...props} size="small" rounded />;
 			},
 		},
@@ -93,8 +95,10 @@ const RespondentsTable = () => {
 			sort: 'survey_completed_at',
 			render: (row) => (
 				<Typography color="var(--text-secondary-color)" variant="body1">
-					{row.survey_completed_at
-						? moment(row.survey_completed_at).format('DD.MM.YYYY')
+					{row.current_survey.survey_completed_at
+						? moment(row.current_survey.survey_completed_at).format(
+								'DD.MM.YYYY',
+							)
 						: '–'}
 				</Typography>
 			),
