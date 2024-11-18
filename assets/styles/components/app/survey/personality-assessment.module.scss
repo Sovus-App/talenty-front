@@ -23,7 +23,7 @@
   padding: 8px 16px;
   border-radius: 8px;
   position: relative;
-  color: #414651;
+  color: var(--text-secondary-color);
   & span {
     user-select: none;
     pointer-events: none;

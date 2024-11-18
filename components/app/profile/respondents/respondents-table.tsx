@@ -10,9 +10,9 @@ import {
 	Respondent,
 } from '@/lib';
 
-import { SearchInput } from '@/components';
+import { SearchInput, Chip } from '@/components';
 import { Columns, Table } from '@/components/table';
-import { Button, Chip, Grid2 as Grid } from '@mui/material';
+import { Button, Grid2 as Grid, Typography } from '@mui/material';
 import { EmptyRespondentsTable } from './empty';
 
 const RespondentsTable = () => {
@@ -42,40 +42,41 @@ const RespondentsTable = () => {
 		{
 			field: 'gender',
 			label: 'Пол',
-			render: (row) => {
-				if (!GENDERS[row.gender]) {
-					return '–';
-				}
-				return (
-					<Chip
-						component="div"
-						label={GENDERS[row.gender]}
-						sx={{
-							background: '#F0F5F8',
-						}}
-					/>
-				);
-			},
+			render: (row) => (
+				<Chip
+					rounded
+					size="small"
+					variant="outlined"
+					label={{ text: GENDERS[row.gender] ?? '–' }}
+				/>
+			),
 		},
 		{
 			field: 'date_of_birth',
 			label: 'Возраст',
-			format: (value) => {
-				if (value) {
-					return `${moment(new Date()).diff(new Date(value), 'years')} лет`;
-				}
-				return '-';
-			},
+			render: (row) => (
+				<Typography color="var(--text-secondary-color)" variant="body1">
+					{row.date_of_birth
+						? `${moment(new Date()).diff(new Date(row.date_of_birth), 'years')} лет`
+						: '–'}
+				</Typography>
+			),
 		},
 		{
 			field: 'survey_created_at',
 			label: 'Тест создан',
-			render: (row) => {
-				if (row.survey_created_at) {
-					return moment(row.survey_created_at).format('DD.MM.YYYY');
-				}
-				return '–';
-			},
+			render: (row) => (
+				<Chip
+					rounded
+					size="small"
+					variant="secondary"
+					label={{
+						text: row.survey_created_at
+							? moment(row.survey_created_at).format('DD.MM.YYYY')
+							: '–',
+					}}
+				/>
+			),
 		},
 		{
 			field: 'survey_status',
@@ -83,38 +84,20 @@ const RespondentsTable = () => {
 			sort: 'survey_status',
 			render: (row) => {
 				const props = getSurveyStatusProps(row.survey_status);
-				return (
-					<Chip
-						component="div"
-						avatar={
-							<Grid
-								sx={{
-									borderRadius: '50%',
-									backgroundColor: props.color,
-									width: '6px !important',
-									height: '6px !important',
-								}}
-							/>
-						}
-						label={props.label}
-						sx={{
-							color: props.color,
-							backgroundColor: props.backgroundColor,
-						}}
-					/>
-				);
+				return <Chip {...props} size="small" rounded />;
 			},
 		},
 		{
 			field: 'survey_completed_at',
 			label: 'Тест пройден',
 			sort: 'survey_completed_at',
-			render: (row) => {
-				if (row.survey_completed_at) {
-					return moment(row.survey_completed_at).format('DD.MM.YYYY');
-				}
-				return '–';
-			},
+			render: (row) => (
+				<Typography color="var(--text-secondary-color)" variant="body1">
+					{row.survey_completed_at
+						? moment(row.survey_completed_at).format('DD.MM.YYYY')
+						: '–'}
+				</Typography>
+			),
 		},
 	];
 
@@ -136,7 +119,7 @@ const RespondentsTable = () => {
 							sx={{ maxWidth: 'var(--form-max-width)' }}
 						/>
 						<Grid container>
-							<Button variant="contained" size="medium">
+							<Button variant="contained" size="large">
 								<Link href={'/profile/respondents/create'}>
 									Создать респондента
 								</Link>

@@ -3,8 +3,6 @@
   flex-direction: column;
   gap: 24px;
   &_header, &_info {
-    box-shadow: var(--layout-box-shadow);
-    border: var(--layout-border);
     padding: 24px;
     border-radius: 8px;
     background: var(--layout-background-color);

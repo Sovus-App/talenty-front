@@ -14,7 +14,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const isPrivateRoute = pathname.includes('profile');
-	const isAuth = pathname.includes('sign-in') || pathname.includes('sign-up');
+	const isAuthRoute =
+		pathname.includes('sign-in') || pathname.includes('sign-up');
 
 	const checkAuth = useCallback(async () => {
 		if (token) {
@@ -34,10 +35,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
 	}, [checkAuth]);
 
 	useEffect(() => {
-		if (token && isAuthenticated && isAuth) {
+		if (token && isAuthenticated && isAuthRoute) {
 			router.push('/profile/respondents');
 		}
-	}, [token, isAuthenticated, isAuth]);
+	}, [token, isAuthenticated, isAuthRoute]);
 
 	useEffect(() => {
 		if (!token && !isAuthenticated && isPrivateRoute) {

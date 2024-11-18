@@ -25,3 +25,4 @@ export { SearchInput, AuthInput } from './input';
 export { List } from './list';
 export { Accordion } from './accordion';
 export { Select } from './select';
+export { Chip } from './chip';

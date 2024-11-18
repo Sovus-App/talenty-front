@@ -1,22 +1,27 @@
+import { ChipProps } from '@/components/chip/chip';
+import { OverridableStringUnion } from '@mui/types';
+
 const getSurveyStatusProps = (
 	survey_status: 'completed' | 'not_completed' | string,
-) => {
-	const props = {
-		color: 'inherit',
-		backgroundColor: 'transparent',
-		label: '-',
+): ChipProps => {
+	const props: {
+		label: { text: string };
+		variant: OverridableStringUnion<'filled' | 'outlined'>;
+	} = {
+		label: {
+			text: '–',
+		},
+		variant: 'outlined',
 	};
 	if (survey_status === 'completed') {
 		Object.assign(props, {
-			color: '#027A48',
-			backgroundColor: '#ECFDF3',
-			label: 'Пройдено',
+			label: { text: 'Пройдено' },
+			variant: 'success',
 		});
 	} else if (survey_status === 'not_completed') {
 		Object.assign(props, {
-			color: '#B42318',
-			backgroundColor: '#FEF3F2',
-			label: 'Не пройдено',
+			label: { text: 'Не пройдено' },
+			variant: 'error',
 		});
 	}
 	return props;

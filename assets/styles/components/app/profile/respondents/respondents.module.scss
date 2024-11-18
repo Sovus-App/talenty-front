@@ -14,8 +14,6 @@
 
 .create_respondent {
   background: var(--layout-background-color);
-  box-shadow: var(--layout-box-shadow);
-  border: var(--layout-border);
   padding: 24px;
   border-radius: 8px;
 	& h1 {
@@ -26,8 +24,6 @@
 .respondent_card {
   &_testing_history,&_header,&_reports,&_loading {
     background: var(--layout-background-color);
-    box-shadow: var(--layout-box-shadow);
-    border: var(--layout-border);
     padding: 24px;
     border-radius: 8px;
   }
@@ -45,17 +41,16 @@
       margin-bottom: 8px;
     }
     &_info {
-      & li {
-        position: relative;
-        &:not(:last-child)::after {
-          content: '•';
-          color: var(--primary-color);
-          width: 4px;
-          height: 4px;
-          position: absolute;
-          right: -2px;
-          top: 2px;
-        }
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      max-width: 503px;
+      margin-bottom: 24px;
+      & h1 {
+        margin-bottom: 0;
+        margin-right: 8px;
       }
     }
 	}

@@ -10,7 +10,6 @@ import { readFromLocalStorage } from '@/tools';
 
 import { AsideLayout } from '@/components';
 import Header from './header';
-import TestingHistoryTable from './testing-history-table';
 import Aside from './aside';
 import Reports from './reports';
 import { Skeleton } from '@mui/material';
@@ -27,22 +26,17 @@ const RespondentCard = () => {
 		(key: string) => getRespondentsFetcher(key, token),
 	);
 	return (
-		<AsideLayout
-			header={
-				<Header
-					loading={isLoading}
-					respondent={respondentData?.data.respondent}
-				/>
-			}
-			aside={<Aside loading={isLoading} />}
-		>
+		<AsideLayout aside={<Aside loading={isLoading} />}>
 			{isLoading ? (
 				<div className={classes.respondent_card_loading}>
 					<Skeleton height="var(--layout-min-height)" variant="rectangular" />
 				</div>
 			) : (
 				<>
-					<TestingHistoryTable tableData={respondentData?.data?.surveys} />
+					<Header
+						loading={isLoading}
+						respondent={respondentData?.data.respondent}
+					/>
 					<Reports />
 				</>
 			)}

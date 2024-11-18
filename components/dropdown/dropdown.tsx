@@ -41,7 +41,6 @@ const Dropdown = ({
 					}
 					setPopoverElement(event.currentTarget);
 				}}
-				size="small"
 				{...toggle}
 			>
 				{label}

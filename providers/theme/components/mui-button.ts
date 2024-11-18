@@ -18,6 +18,10 @@ const muiButton: MUIComponentsType = {
 	},
 	MuiButton: {
 		styleOverrides: {
+			startIcon: {
+				marginRight: '4px',
+				marginLeft: 0,
+			},
 			root: {
 				boxShadow: 'none',
 				textTransform: 'none',
@@ -25,27 +29,21 @@ const muiButton: MUIComponentsType = {
 				height: 'max-content',
 				textAlign: 'center',
 				color: 'inherit',
+				borderRadius: '8px',
+				lineHeight: '24px',
+				fontSize: '15px',
 				variants: [
-					{
-						props: { size: 'small' },
-						style: {
-							padding: '4px 12px',
-							borderRadius: '8px',
-						},
-					},
 					{
 						props: { size: 'medium' },
 						style: {
-							fontSize: '15px',
+							maxHeight: '36px',
 							padding: '6px 12px',
-							borderRadius: '8px',
 						},
 					},
 					{
 						props: { size: 'large' },
 						style: {
-							padding: '12px 16px',
-							borderRadius: '12px',
+							padding: '8px 24px',
 						},
 					},
 					{
@@ -60,7 +58,7 @@ const muiButton: MUIComponentsType = {
 						style: {
 							background: 'none',
 							border: '1px solid #0D99FF',
-							color: 'var(--primary-color)',
+							color: 'var(--text-primary-color)',
 						},
 					},
 					{

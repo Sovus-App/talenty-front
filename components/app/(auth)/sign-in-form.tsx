@@ -32,7 +32,13 @@ const SignInForm = () => {
 			setFormErrors([]);
 			router.push('/profile/respondents');
 		} else if (credentials?.message) {
-			enqueueSnackbar(credentials?.message, { variant: 'error' });
+			enqueueSnackbar(credentials?.message, {
+				variant: 'error',
+				anchorOrigin: {
+					horizontal: 'center',
+					vertical: 'bottom',
+				},
+			});
 			if (credentials?.errors) {
 				setFormErrors(credentials?.errors);
 			}

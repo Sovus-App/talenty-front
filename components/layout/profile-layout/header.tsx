@@ -1,13 +1,14 @@
 'use client';
 import Link from 'next/link';
 import classes from '@/assets/styles/components/layout/layout.module.scss';
-import { TalentyIcon, BellIcon, AvatarIcon } from '@/assets/icons';
+import { TalentyIcon, SmileyIcon, RubIcon } from '@/assets/icons';
 import { Button, Grid2 as Grid } from '@mui/material';
 import { Dropdown } from '../../dropdown';
 import { GetMeResponse, getMeFetcher, GET_ME_API_ROUTE } from '@/lib';
 import { useRouter } from 'next/navigation';
 import { deleteFromLocalStorage, readFromLocalStorage } from '@/tools';
 import useSWR from 'swr';
+import { Chip } from '@/components';
 
 const Header = () => {
 	const router = useRouter();
@@ -29,7 +30,7 @@ const Header = () => {
 				container
 				columns={7}
 				component="ul"
-				className={classes.navbar}
+				className={[classes.navbar, classes.profile_header_container].join(' ')}
 			>
 				<li className={classes.navbar_item_logo}>
 					<Link href={'/profile/respondents'}>
@@ -42,21 +43,19 @@ const Header = () => {
 				<Grid flexGrow={1} component="li">
 					<Link href={'/profile/finance'}>Финансы</Link>
 				</Grid>
-				<li className={classes.navbar_item_balance}>
-					<b>2000 ₽</b>
-				</li>
-				<Grid component="li" marginRight="40px">
-					<Button variant="outlined" size="small">
-						Пополнить
-					</Button>
+				<Grid component="li" className={classes.navbar_item_balance}>
+					<Chip variant="filled" label={{ text: 2000, icon: <RubIcon /> }} />
 				</Grid>
-				<li>
-					<Dropdown id="notification" label={<BellIcon withBadge />}></Dropdown>
+				<li className={classes.navbar_item_balance_refill}>
+					<Button variant="outlined">Пополнить баланс</Button>
 				</li>
-				<li className={classes.navbar_item_user}>
+				<li>
 					<Dropdown
 						label={userData?.data?.user?.email}
-						toggle={{ startIcon: <AvatarIcon /> }}
+						toggle={{
+							startIcon: <SmileyIcon />,
+							sx: { background: 'rgba(0, 0, 0, 0.05)' },
+						}}
 						id="user-profile-dropdown"
 					>
 						<Button onClick={() => logout()}>Выход</Button>

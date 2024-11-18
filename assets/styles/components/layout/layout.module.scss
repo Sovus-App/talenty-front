@@ -8,12 +8,11 @@
 			margin-right: 92px;
 		}
 		&_balance {
+			display: flex;
+			align-items: center;
 			font-size: 14px;
-		}
-		&_user {
-			& button {
-				padding: 3px 12px;
-				background: rgba(0, 0, 0, 0.05);
+			&_refill {
+				margin-right: 72px;
 			}
 		}
 	}
@@ -28,23 +27,25 @@
 		padding: 24px;
 		position: relative;
 		background-color: var(--layout-background-color);
-		border: var(--layout-border);
 		border-radius: var(--layout-border-radius);
-		box-shadow: var(--layout-box-shadow);
 		min-height: var(--layout-min-height);
 	}
 }
 
 .profile_header {
-	max-width: var(--layout-profile-max-width);
+	padding: 0;
+	background: #ffffff;
+	&_container {
+		margin: 0 auto;
+		padding: 12px 0;
+		max-width: calc(var(--layout-profile-max-width) - 80px);
+	}
 }
 
 .auth_layout {
 	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-auth-max-width);
-	box-shadow: var(--layout-box-shadow);
-	border: var(--layout-border);
 }
 
 .auth_header {
@@ -55,8 +56,6 @@
 	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-default-max-width);
-	box-shadow: var(--layout-box-shadow);
-	border: var(--layout-border);
 }
 
 .default_header {
@@ -67,8 +66,6 @@
 	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-testing-max-width);
-	box-shadow: var(--layout-box-shadow);
-	border: var(--layout-border);
 }
 
 .testing_header {
@@ -79,8 +76,6 @@
 	border-radius: var(--layout-border-radius);
 	background-color: var(--layout-background-color);
 	max-width: var(--layout-error-max-width);
-	box-shadow: var(--layout-box-shadow);
-	border: var(--layout-border);
 }
 
 .error_header{

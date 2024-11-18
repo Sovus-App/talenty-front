@@ -34,6 +34,7 @@ const muiInput: MUIComponentsType = {
 					{
 						props: { size: 'small' },
 						style: {
+							lineHeight: '24px',
 							padding: '8px 12px !important',
 						},
 					},
