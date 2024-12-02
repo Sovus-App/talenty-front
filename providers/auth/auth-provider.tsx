@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { deleteFromLocalStorage, readFromLocalStorage } from '@/tools';
 import { usePathname, useRouter } from 'next/navigation';
 import { Skeleton } from '@mui/material';
@@ -17,7 +17,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 	const isAuthRoute =
 		pathname.includes('sign-in') || pathname.includes('sign-up');
 
-	const checkAuth = useCallback(async () => {
+	const checkAuth = async () => {
 		if (token) {
 			const user = await getMe(token);
 			if (user?.uuid) {
@@ -28,11 +28,11 @@ function AuthProvider({ children }: { children: ReactNode }) {
 				setIsAuthenticated(false);
 			}
 		}
-	}, [token]);
+	};
 
 	useEffect(() => {
 		checkAuth();
-	}, [checkAuth]);
+	}, []);
 
 	useEffect(() => {
 		if (token && isAuthenticated && isAuthRoute) {

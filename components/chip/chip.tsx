@@ -11,7 +11,7 @@ export interface ChipProps extends Omit<MUIChipProps, 'label'> {
 
 const statuses = ['success', 'warning', 'error'];
 
-const Chip = ({ label, variant, ...props }: ChipProps) => {
+const Chip = ({ sx, label, variant, rounded, ...props }: ChipProps) => {
 	const innerProps = useMemo((): {
 		label: { text: React.ReactNode; icon?: React.ReactNode };
 		color: OverridableStringUnion<
@@ -39,6 +39,7 @@ const Chip = ({ label, variant, ...props }: ChipProps) => {
 		<MUIChip
 			{...props}
 			variant={variant}
+			sx={rounded ? { borderRadius: '22px', ...sx } : undefined}
 			color={innerProps.color}
 			label={
 				<Grid gap="4px" alignItems="center" container>

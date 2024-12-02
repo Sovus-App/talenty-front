@@ -1,6 +1,6 @@
 import { PersonalityAssessmentAnswer } from '@/lib/survey/personality-assessment';
 
-import classes from '@/assets/styles/components/app/survey/personality-assessment.module.scss';
+import classes from '@/assets/styles/app/survey/personality-assessment.module.scss';
 
 interface CardsProps {
 	onClick: (code: string, type: 'positive' | 'negative') => void;

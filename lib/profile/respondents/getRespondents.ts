@@ -1,9 +1,6 @@
 export const GET_RESPONDENT_API_ROUTE = 'api/internal/pages/respondents';
 
-export const getRespondentsFetcher = (
-	url: string,
-	token: string | null | boolean,
-) =>
+export const getRespondentsFetcher = (url: string, token: unknown) =>
 	fetch(url, {
 		method: 'GET',
 		headers: {

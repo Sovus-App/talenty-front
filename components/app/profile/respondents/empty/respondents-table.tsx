@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@mui/material';
-import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
+import classes from '@/assets/styles/app/profile/respondents/respondents.module.scss';
 
 const EmptyRespondentsTable = () => {
 	return (

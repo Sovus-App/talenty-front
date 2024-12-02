@@ -9,12 +9,10 @@ import { useParams } from 'next/navigation';
 import { readFromLocalStorage } from '@/tools';
 
 import { AsideLayout } from '@/components';
-import Header from './header';
-import Aside from './aside';
-import Reports from './reports';
+import { Header, Aside, Tabs } from './components';
 import { Skeleton } from '@mui/material';
 
-import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
+import classes from '@/assets/styles/app/profile/respondents/respondents.module.scss';
 
 const RespondentCard = () => {
 	const token = readFromLocalStorage('token');
@@ -37,7 +35,7 @@ const RespondentCard = () => {
 						loading={isLoading}
 						respondent={respondentData?.data.respondent}
 					/>
-					<Reports />
+					<Tabs respondent={respondentData?.data.respondent} />
 				</>
 			)}
 		</AsideLayout>

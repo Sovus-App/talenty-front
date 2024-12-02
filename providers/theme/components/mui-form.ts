@@ -8,6 +8,14 @@ const muiForm: MUIComponentsType = {
 			},
 		},
 	},
+	MuiFormControlLabel: {
+		styleOverrides: {
+			root: {
+				width: '100%',
+				marginLeft: 0,
+			},
+		},
+	},
 	MuiFormLabel: {
 		styleOverrides: {
 			asterisk: {

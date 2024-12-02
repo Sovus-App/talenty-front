@@ -1,4 +1,4 @@
-import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
+import classes from '@/assets/styles/app/profile/respondents/respondents.module.scss';
 import { AsideLayout, CreateRespondentForm } from '@/components';
 import type { Metadata } from 'next';
 

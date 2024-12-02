@@ -17,19 +17,22 @@ export interface CreateRespondentResponse {
 	uuid: string;
 }
 
+export interface RespondentSurvey {
+	survey_changed_at: string;
+	survey_completed_at: string;
+	survey_created_at: string;
+	survey_id: string | null;
+	survey_status: 'completed' | 'not_completed' | string;
+	survey_uuid: string | null;
+}
+
 export interface Respondent {
 	uuid: string;
 	full_name: string;
+	email: string;
 	gender: keyof typeof GENDERS;
 	date_of_birth: string;
-	current_survey: {
-		survey_changed_at: string;
-		survey_completed_at: string;
-		survey_created_at: string;
-		survey_id: string | null;
-		survey_status: 'completed' | 'not_completed' | string;
-		survey_uuid: string | null;
-	};
+	current_survey: RespondentSurvey;
 }
 
 export interface Surveys {

@@ -17,7 +17,7 @@
   }
   &_transactions,&_header {
     padding: 24px;
-    border-radius: 8px;
+    border-radius: var(--layout-border-radius);
     background: var(--layout-background-color);
   }
   &_header {

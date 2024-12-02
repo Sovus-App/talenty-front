@@ -10,7 +10,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
+import classes from '@/assets/styles/app/profile/respondents/respondents.module.scss';
 import { Chip } from '@/components';
 import moment from 'moment';
 import { CopyIcon } from '@/assets/icons';
@@ -74,7 +74,7 @@ const Header = ({ respondent, loading }: HeaderProps) => {
 						variant="contained"
 						size="medium"
 					>
-						Назначить тестироование
+						Назначить тестирование
 					</Button>
 				</>
 			)}

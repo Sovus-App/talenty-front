@@ -1,4 +1,4 @@
-import classes from '@/assets/styles/components/app/survey/hidden-motivation.module.scss';
+import classes from '@/assets/styles/app/survey/hidden-motivation.module.scss';
 import { memo } from 'react';
 import { ConfiguredColors } from '@/lib/survey/hidden-motivation';
 import { Grid2 as Grid } from '@mui/material';

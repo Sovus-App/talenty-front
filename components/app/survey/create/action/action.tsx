@@ -1,10 +1,12 @@
 'use client';
 
-import classes from '@/assets/styles/components/app/survey/create.module.scss';
+import classes from '@/assets/styles/app/survey/create.module.scss';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@mui/material';
 import { createSurvey } from '@/lib/survey';
 import { useSnackbar } from 'notistack';
+import { Chip } from '@/components';
+import { Timer } from '@/assets/icons';
 
 const Action = () => {
 	const { enqueueSnackbar } = useSnackbar();
@@ -38,9 +40,12 @@ const Action = () => {
 				</p>
 			</div>
 			<div className={classes.create_survey_info_description}>
-				<p>
-					Время на прохождение: <b>56 минут</b>
-				</p>
+				<h2>Время на прохождение:</h2>
+				<Chip
+					size="small"
+					variant="filled"
+					label={{ text: <b>56 минут</b>, icon: <Timer /> }}
+				/>
 			</div>
 			<div className={classes.create_survey_info_buttons}>
 				<Button onClick={onCreateSurvey} variant="contained">

@@ -7,6 +7,7 @@ import muiInput from './mui-input';
 import muiButton from './mui-button';
 import muiPagination from './mui-pagination';
 import muiAccordion from './mui-accordion';
+import muiTabs from './mui-tabs';
 
 export type MUIComponentsType = Components<
 	Omit<Theme, 'components' | 'palette'> & CssVarsTheme
@@ -20,6 +21,7 @@ const components: MUIComponentsType = {
 	...muiPagination,
 	...muiForm,
 	...muiAccordion,
+	...muiTabs,
 };
 
 export default components;

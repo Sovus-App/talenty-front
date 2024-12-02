@@ -1,6 +1,6 @@
 import { Button, Grid2 as Grid, Skeleton, TextField } from '@mui/material';
 
-import classes from '@/assets/styles/components/app/profile/respondents/respondents.module.scss';
+import classes from '@/assets/styles/app/profile/respondents/respondents.module.scss';
 
 const Aside = ({ loading }: { loading: boolean }) => {
 	return (
@@ -17,7 +17,9 @@ const Aside = ({ loading }: { loading: boolean }) => {
 						maxRows={4}
 					/>
 					<Grid flexGrow=".5">
-						<Button variant="outlined">Добавить заметку</Button>
+						<Button fullWidth variant="outlined">
+							Добавить заметку
+						</Button>
 					</Grid>
 				</Grid>
 			)}

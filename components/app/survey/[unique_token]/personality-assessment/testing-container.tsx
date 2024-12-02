@@ -13,7 +13,7 @@ import {
 import Introduce from './introduce';
 import Testing from './testing';
 
-import classes from '@/assets/styles/components/app/survey/personality-assessment.module.scss';
+import classes from '@/assets/styles/app/survey/personality-assessment.module.scss';
 
 interface PersonalityAssessmentContainerProps {
 	testingData: PersonalityAssessmentTesting & { survey: Survey };

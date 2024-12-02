@@ -9,7 +9,7 @@ import { AuthInput } from '@/components';
 import { MailIcon } from '@/assets/icons';
 import Link from 'next/link';
 
-import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
+import classes from '@/assets/styles/app/(auth)/auth.module.scss';
 
 const SignInForm = () => {
 	const [formErrors, setFormErrors] = useState<

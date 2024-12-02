@@ -7,19 +7,18 @@ import { useSnackbar } from 'notistack';
 
 import {
 	Button,
-	Checkbox,
 	FormControl,
 	FormControlLabel,
 	Grid2 as Grid,
 	InputAdornment,
 	Typography,
 } from '@mui/material';
-import { AuthInput } from '@/components';
+import { AuthInput, Checkbox } from '@/components';
 import { PhoneInputMask, AuthInputProps } from '@/components/input';
 import { MailIcon } from '@/assets/icons';
 import Link from 'next/link';
 
-import classes from '@/assets/styles/components/app/(auth)/auth.module.scss';
+import classes from '@/assets/styles/app/(auth)/auth.module.scss';
 
 const SignUpForm = () => {
 	const [formErrors, setFormErrors] = useState<

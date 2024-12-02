@@ -21,7 +21,7 @@ export {
 export { Dropdown } from './dropdown';
 export { Table } from './table';
 export { DatePicker } from './datepicker';
-export { SearchInput, AuthInput } from './input';
+export { SearchInput, AuthInput, Checkbox } from './input';
 export { List } from './list';
 export { Accordion } from './accordion';
 export { Select } from './select';

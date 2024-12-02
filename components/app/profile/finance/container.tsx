@@ -1,4 +1,4 @@
-import classes from '@/assets/styles/components/app/profile/finance/finance.module.scss';
+import classes from '@/assets/styles/app/profile/finance/finance.module.scss';
 
 import TransactionsHistory from './history';
 import Header from './header';

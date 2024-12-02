@@ -16,7 +16,7 @@
     padding: 24px;
     flex-grow: 1;
     max-height: fit-content;
-    border-radius: 8px;
+    border-radius: var(--layout-border-radius);
     background-color: var(--layout-background-color);
     & h2 {
       font-size: 24px;

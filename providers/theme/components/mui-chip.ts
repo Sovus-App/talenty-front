@@ -39,12 +39,6 @@ const muiChip: MUIComponentsType = {
 						},
 					},
 					{
-						props: { rounded: true },
-						style: {
-							borderRadius: '22px',
-						},
-					},
-					{
 						props: { variant: 'outlined' },
 						style: {
 							borderColor: '#EAF0F6',
@@ -69,6 +63,9 @@ const muiChip: MUIComponentsType = {
 						style: {
 							padding: '3px 8px',
 							lineHeight: '16px',
+							'&:has(svg)': {
+								padding: '3px 8px 3px 4px',
+							},
 						},
 					},
 				],

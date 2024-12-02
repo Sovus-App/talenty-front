@@ -109,7 +109,7 @@ const Table = <T,>({
 				<TableRow
 					hover
 					sx={onRowClick ? { cursor: 'pointer' } : undefined}
-					key={(row as { id: number }).id}
+					key={(row as { id: number }).id ?? (row as { uuid: number }).uuid}
 					onClick={() => {
 						if (onRowClick) {
 							onRowClick(row);
@@ -151,9 +151,13 @@ const Table = <T,>({
 						<TableHead>
 							<TableRow>
 								{columns.map((column) => {
-									const Label = () => {
-										if (column.sort) {
-											return (
+									return (
+										<TableCell
+											key={column.field}
+											align={column.align || 'left'}
+											sx={{ ...column.sx }}
+										>
+											{column.sort ? (
 												<Grid gap="8px" container alignItems="center">
 													<Grid>{column.label}</Grid>
 													<Grid>
@@ -166,17 +170,9 @@ const Table = <T,>({
 														</IconButton>
 													</Grid>
 												</Grid>
-											);
-										}
-										return <>{column.label}</>;
-									};
-									return (
-										<TableCell
-											key={column.field}
-											align={column.align || 'left'}
-											sx={{ ...column.sx }}
-										>
-											<Label />
+											) : (
+												column.label
+											)}
 										</TableCell>
 									);
 								})}

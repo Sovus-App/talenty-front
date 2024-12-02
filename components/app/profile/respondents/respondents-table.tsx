@@ -27,14 +27,23 @@ const RespondentsTable = () => {
 	const searchStr = search.get('search')
 		? `search=${search.get('search')}`
 		: '';
-	const queryParams = [page, per_page, searchStr].filter(Boolean).join('&');
+	const sort = search.get('sort') ? `sort=${search.get('sort')}` : '';
+	const queryParams = [page, per_page, searchStr, sort]
+		.filter(Boolean)
+		.join('&');
 
 	const { data: respondentsData, isLoading } = useSWR<{
 		data: { respondents: Respondent[] };
 		meta: { total_count: number };
 	}>(
-		`${process.env.NEXT_PUBLIC_API_BASE_URL}/${GET_RESPONDENT_API_ROUTE}?${queryParams}`,
-		(key: string) => getRespondentsFetcher(key, token),
+		[
+			`${process.env.NEXT_PUBLIC_API_BASE_URL}/${GET_RESPONDENT_API_ROUTE}`,
+			queryParams,
+			token,
+		],
+		([url, query, token]) => {
+			return getRespondentsFetcher(`${url}?${query}`, token);
+		},
 	);
 
 	const columns: Columns<Respondent>[] = [

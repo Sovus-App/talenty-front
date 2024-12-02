@@ -1,6 +1,5 @@
 export { default as TalentyIcon } from './talenty';
 export { default as SearchIcon } from './search';
-export { default as LinkIcon } from './link';
 export { default as MailIcon } from './mail';
 export { default as ChevronRight } from './chevron-right';
 export { default as SortTable } from './sort-table';
@@ -10,3 +9,9 @@ export { default as SuccessIcon } from './success';
 export { default as FailIcon } from './fail';
 export { default as SmileyIcon } from './smiley';
 export { default as CopyIcon } from './copy';
+export { Checked, Unchecked } from './checkbox';
+export { default as Timer } from './timer';
+export { default as LockIcon } from './lock';
+export { default as UserCirclePlus } from './user-circle-plus';
+export { default as HandPeace } from './hand-peace';
+export { default as ArrowLinkPrimary } from './arrow-link-primary';

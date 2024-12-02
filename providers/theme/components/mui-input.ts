@@ -1,7 +1,20 @@
 import { MUIComponentsType } from './';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { svgIconClasses } from '@mui/material';
 
 const muiInput: MUIComponentsType = {
+	MuiCheckbox: {
+		styleOverrides: {
+			root: {
+				padding: 0,
+				marginRight: '8px',
+				[`& .${svgIconClasses.root}`]: {
+					width: '20px',
+					height: '20px',
+				},
+			},
+		},
+	},
 	MuiInputAdornment: {
 		styleOverrides: {
 			root: {

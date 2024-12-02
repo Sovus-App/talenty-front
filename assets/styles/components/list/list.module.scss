@@ -3,9 +3,9 @@
   flex-direction: column;
   &_item {
     list-style: none;
-    padding: 8px;
+    padding: 12px;
     &:not(:last-child) {
-      border-bottom: 1px solid #D5D7DA;
+      border-bottom: 1px solid #EAF0F6;
     }
   }
 }
