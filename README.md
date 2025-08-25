@@ -1,4 +1,4 @@
-![Logo of the project](assets/imags/talenty.png)<b>front
+Talenty Front
 
 ## Стек
 
