@@ -1,4 +1,4 @@
-Talenty Front
+# Talenty Front
 
 ## Стек
 
